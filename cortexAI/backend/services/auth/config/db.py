@@ -1,6 +1,7 @@
 import os
 from pymongo import AsyncMongoClient
 from beanie import init_beanie
+from models.user import User
 
 async def connect_db():
     try:
@@ -19,7 +20,7 @@ async def connect_db():
         # 4. Initialize Beanie smoothly
         await init_beanie(
             database=db, 
-            document_models=[]  # Put your Beanie Document classes here later
+            document_models=[User]  # Put your Beanie Document classes here later
         )
         
         print("db connected")

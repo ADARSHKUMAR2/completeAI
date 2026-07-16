@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from config.db import connect_db
+from config.firebase import init_firebase
 
 # 1. Load environment variables
 load_dotenv()
@@ -15,6 +16,7 @@ async def lifespan(app: FastAPI):
     # This code runs BEFORE the server starts taking requests
     print(f"auth started at {PORT}")
     await connect_db()
+    init_firebase()
     
     yield  # The application runs while paused here
     
