@@ -3,6 +3,7 @@ from fastapi import FastAPI, Request, Response
 from dotenv import load_dotenv
 import httpx
 from utils.proxy import register_proxy
+from utils.cors import register_cors
 import uvicorn
 
 # 1. Load environment variables from your .env file
@@ -13,6 +14,8 @@ app = FastAPI()
 
 # 3. Define the port from environment variables (default to 8000 if not found)
 PORT = int(os.getenv("PORT", 8000))
+
+register_cors(app)
 
 register_proxy(
     app, 

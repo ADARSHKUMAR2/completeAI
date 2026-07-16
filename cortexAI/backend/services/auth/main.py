@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 from config.db import connect_db
 from config.firebase import init_firebase
+from controllers.auth import router as auth_router
 
 # 1. Load environment variables
 load_dotenv()
@@ -24,6 +25,10 @@ async def lifespan(app: FastAPI):
 
 # 3. Pass the lifespan to the FastAPI instance
 app = FastAPI(lifespan=lifespan)
+
+# 2. Register the router (equivalent to app.use("/auth", authRouter) in Express)
+# We can include a prefix here so all routes inside that file automatically get it!
+app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
 
 @app.get("/")
 async def root():

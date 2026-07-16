@@ -16,7 +16,7 @@ def register_proxy(app: FastAPI, path_prefix: str, target_url: str):
 
     # Define the core async proxy request/response pipeline
     async def proxy_handler(request: Request, path: str):
-        target_path = f"/{path}"
+        target_path = f"{path_prefix.rstrip('/')}/{path}"
         
         # 1. Duplicate incoming request details
         req = async_client.build_request(
