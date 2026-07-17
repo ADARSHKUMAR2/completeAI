@@ -4,9 +4,12 @@ import { auth, googleProvider } from "../../utils/firebase";
 // Import BOTH the default client and the AUTH_URL string
 import api from "../../utils/axios"; 
 import { FcGoogle } from 'react-icons/fc'
+import { useSelector } from 'react-redux'
 
 function Home() {
 
+  const {userData} = useSelector(state => state.user)
+  // console.log("User data:", userData)
   const handleLogin = async (firebaseToken) => {
     try {
       // Direct this call straight to port 8001
