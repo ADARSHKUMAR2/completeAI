@@ -8,8 +8,6 @@ from config.firebase import init_firebase
 from controllers.auth import router as auth_router
 from pathlib import Path
 import sys
-# Dynamically add the 'backend' folder to Python's search paths
-sys.path.append(str(Path(__file__).resolve().parents[2]))
 from shared.redis.redis import init_redis
 
 # 1. Load environment variables

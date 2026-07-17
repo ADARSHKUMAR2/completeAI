@@ -1,14 +1,26 @@
 [project]
 name = "backend"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
+description = "CortexAI Backend Core Root"
 requires-python = ">=3.12"
 dependencies = [
-    "redis>=8.0.1",
+    # Gateway dependencies
+    "fastapi>=0.139.1",
+    "httpx>=0.28.1",
+    "loguru>=0.7.3",
+    "python-dotenv>=1.2.2",
+    "uvicorn>=0.51.0",
+    
+    # Auth Service dependencies
+    "beanie>=2.1.0",
+    "motor>=3.7.1",
+    "pymongo>=4.17.0",
+    "firebase-admin>=7.5.0",
+    
+    # Shared / Common dependencies
+    "redis>=8.0.1", 
 ]
 
-[tool.uv.workspace]
-members = [
-    "shared/redis",
-]
+# This lets uv know it should treat the whole backend folder as the single search path
+[tool.uv]
+dev-dependencies = []
