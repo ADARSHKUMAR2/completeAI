@@ -31,6 +31,12 @@ register_proxy_with_header(
     target_url=os.getenv("CHAT_SERVICE_URL", "http://127.0.0.1:8002")
 )
 
+register_proxy_with_header(
+    app,
+    path_prefix="/agent",
+    target_url=os.getenv("AGENT_SERVICE_URL", "http://127.0.0.1:8003")
+)
+
 # Register the protected validation endpoint
 @app.get("/me")
 async def check_me(user_data: dict = Depends(protect)):

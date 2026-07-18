@@ -20,7 +20,7 @@ async def lifespan(app: FastAPI):
     # This code runs BEFORE the server starts taking requests
     print(f"chats started at {PORT}")
     await connect_db()
-    await init_redis()
+    # await init_redis()
     
     yield  # The application runs while paused here
     
@@ -35,7 +35,7 @@ app.include_router(chat_router, prefix="/chat", tags=["Chat"])
 
 @app.get("/")
 async def root():
-    return {"message": "hello from auth"}
+    return {"message": "hello from chat"}
 
 def main():
     uvicorn.run("main:app", host="127.0.0.1", port=PORT, reload=True)
