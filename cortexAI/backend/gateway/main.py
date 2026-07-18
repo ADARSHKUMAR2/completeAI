@@ -2,7 +2,7 @@ import os
 from fastapi import FastAPI, Request, Response, Depends
 from dotenv import load_dotenv
 import httpx
-from utils.proxy import register_proxy
+from utils.proxy import register_proxy, register_proxy_with_header
 from utils.cors import register_cors
 import uvicorn
 from middleware.auth import protect
@@ -23,6 +23,12 @@ register_proxy(
     app, 
     path_prefix="/auth", 
     target_url=os.getenv("AUTH_SERVICE_URL", "http://127.0.0.1:8001")
+)
+
+register_proxy_with_header(
+    app,
+    path_prefix="/chat",
+    target_url=os.getenv("CHAT_SERVICE_URL", "http://127.0.0.1:8002")
 )
 
 # Register the protected validation endpoint

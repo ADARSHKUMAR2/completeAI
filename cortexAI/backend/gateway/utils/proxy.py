@@ -1,5 +1,7 @@
 import httpx
 from fastapi import FastAPI, Request, Response
+from fastapi.params import Depends
+from middleware.auth import protect
 
 def register_proxy(app: FastAPI, path_prefix: str, target_url: str):
     """
@@ -43,3 +45,46 @@ def register_proxy(app: FastAPI, path_prefix: str, target_url: str):
         methods=["GET", "POST", "PUT", "DELETE", "PATCH"],
         include_in_schema=False # Hides proxy boilerplate from your automated Swagger docs
     )(proxy_handler)
+
+def register_proxy_with_header(app: FastAPI, path_prefix: str, target_url: str):
+    """
+    Reverse proxies a path prefix to a target microservice and 
+    injects the authenticated 'X-User-Id' header automatically.
+    """
+    async_client = httpx.AsyncClient(base_url=target_url)
+    route_pattern = f"{path_prefix.rstrip('/')}/{{path:path}}"
+
+    # Enforce authentication right at the proxy doorstep
+    async def proxy_with_header_handler(request: Request, path: str, user_data: dict = Depends(protect)):
+        target_path = f"{path_prefix.rstrip('/')}/{path}"
+        
+        # 1. Convert headers to a standard mutable dictionary
+        headers = dict(request.headers)
+        
+        # 2. Inject the authenticated user ID (equivalent to srcReq.user.userId)
+        if user_data and "userId" in user_data:
+            headers["x-user-id"] = str(user_data["userId"])
+        
+        # 3. Build and forward the request
+        req = async_client.build_request(
+            method=request.method,
+            url=target_path,
+            headers=headers,
+            params=request.query_params,
+            content=await request.body()
+        )
+        
+        response = await async_client.send(req, stream=True)
+        
+        return Response(
+            content=await response.aread(),
+            status_code=response.status_code,
+            headers=dict(response.headers)
+        )
+
+    # Register the route to FastAPI
+    app.api_route(
+        route_pattern, 
+        methods=["GET", "POST", "PUT", "DELETE", "PATCH"],
+        include_in_schema=False
+    )(proxy_with_header_handler)
