@@ -4,7 +4,7 @@ from fastapi.params import Depends
 
 router = APIRouter()
 
-@router.get("/create-conversation")
+@router.post("/create-conversation")
 async def handle_create_conversation(conversation = Depends(create_conversation)):
     return conversation
 
