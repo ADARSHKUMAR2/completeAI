@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setConversations} from "../redux/conversationSlice";
+import {setConversations, addConversation} from "../redux/conversationSlice";
 import {getConversations} from "../features/getConversations";
 import { Plus } from "lucide-react";
 import {createConversation} from "../features/createConversation";
@@ -20,7 +20,11 @@ function SideBar() {
     getConv()
   },[])
 
-  
+  const handleCreateConversation = async () => {
+    const data = await createConversation()
+    dispatch(addConversation(data))
+  }
+
   return (
     <div className='fixed lg:static inset-y-0 left-0 z-50 
       w-[270px] h-screen shrink-0 
@@ -47,7 +51,8 @@ function SideBar() {
           
           <button className='flex items-center justify-center w-7 h-7 rounded-lg text-slate-500 
             hover:text-slate-200 hover:bg-white/[0.05] transition-colors duration-150 bg-transparent 
-            border-none cursor-pointer' onClick={() => createConversation()}>
+            border-none cursor-pointer' 
+            onClick={handleCreateConversation}>
             <PenSquare size={14} />
           </button>
         </div>
@@ -55,7 +60,8 @@ function SideBar() {
         <div className='px-4 pt-4 pb-1'>
           <button className='w-full flex items-center justify-center gap-2 text-sm font-medium text-white 
             bg-linear-to-br from-indigo-500 to-violet-700 rounded-xl py-[10px] border-none cursor-pointer 
-            hover:opacity-90 transition-opacity duration-150'>
+            hover:opacity-90 transition-opacity duration-150'
+            onClick={handleCreateConversation}>
             <Plus size={15} />
             New Chat
           </button>
