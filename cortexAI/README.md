@@ -74,9 +74,43 @@ The backend services use environment variables, typically loaded from `.env` fil
 
 - `PORT` - service port
 - `AUTH_SERVICE_URL` - URL used by gateway proxy to forward auth requests
+- `CHAT_SERVICE_URL` - URL used by gateway proxy to forward chat requests
+- `AGENT_SERVICE_URL` - URL used by gateway proxy to forward agent requests
 - `REDIS_URL` - Redis connection string
 - Firebase credentials for auth service initialization
 - MongoDB connection details in `backend/services/auth/config/db.py`
+
+## Scripts and Entrypoints
+
+### Backend
+
+- `backend/gateway/main.py`
+  - Entrypoint for the gateway service.
+  - Creates the FastAPI app, registers CORS, and configures reverse proxy routes for `/auth`, `/chat`, and `/agent`.
+  - Defines `/me` as a protected endpoint that uses `middleware/auth.py` to validate the session cookie stored in Redis.
+  - Runs the gateway on the port configured by `PORT` with UVicorn and auto-reload enabled.
+
+- `backend/services/auth/main.py`
+  - Entrypoint for the auth service.
+  - Uses a FastAPI lifespan context to initialize MongoDB, Redis, and Firebase Admin before serving requests.
+  - Registers the auth router under `/auth` so login and logout routes are exposed with the correct prefix.
+  - Runs the auth service on the port configured by `PORT` with UVicorn and auto-reload enabled.
+
+- `backend/shared/redis/redis.py`
+  - Shared Redis helper used by both gateway and auth services.
+  - Centralizes Redis initialization so the same connection logic is reused across packages.
+
+### Frontend
+
+- `frontend/package.json` scripts:
+  - `npm run dev` starts the Vite development server for the React frontend.
+  - `npm run build` creates a production build of the frontend assets.
+  - `npm run lint` runs ESLint across the frontend source files.
+  - `npm run preview` serves the built frontend locally for previewing the production build.
+
+- `frontend/src/pages/Home.jsx`
+  - Primary UI page for login and conversation interactions.
+  - Handles the Firebase sign-in flow and sends the Firebase ID token to the backend auth service.
 
 ## Running the Project
 
@@ -98,12 +132,28 @@ cd backend/services/auth
 PYTHONPATH=../.. uv run main.py
 ```
 
+From the chat package:
+
+```bash
+cd backend/services/chat
+PYTHONPATH=../.. uv run main.py
+```
+
+From the agent package:
+
+```bash
+cd backend/services/agent
+PYTHONPATH=../.. uv run main.py
+```
+
 If you prefer the workspace root, you can also run from `backend/`:
 
 ```bash
 cd backend
 uv run gateway/main.py
 uv run services/auth/main.py
+uv run services/chat/main.py
+uv run services/agent/main.py
 ```
 
 ### Frontend

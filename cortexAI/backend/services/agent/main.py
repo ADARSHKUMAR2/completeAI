@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from config.db import connect_db  # We will update/create this next
+from routes.agent_Route import agent_router
 
 # 1. Load environment variables
 load_dotenv()
@@ -20,6 +21,8 @@ async def lifespan(app: FastAPI):
 
 # 3. Instantiate the FastAPI app
 app = FastAPI(lifespan=lifespan)
+
+app.include_router(agent_router, tags=["agent"])
 
 # 4. Root fallback endpoint (Matches app.get("/") in your image)
 @app.get("/")
