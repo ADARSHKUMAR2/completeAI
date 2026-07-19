@@ -1,0 +1,57 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch: API Gateway (:8000)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/cortexAI/backend/gateway/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "subProcess": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/cortexAI/backend"
+            },
+            "python": "${workspaceFolder}/cortexAI/backend/.venv/bin/python"
+        },
+        {
+            "name": "Launch: Auth Service (:8001)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/cortexAI/backend/services/auth/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "subProcess": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/cortexAI/backend"
+            },
+            "python": "${workspaceFolder}/cortexAI/backend/.venv/bin/python"
+        },
+        {
+            "name": "Launch: Chat Service (:8002)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/cortexAI/backend/services/chat/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "subProcess": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/cortexAI/backend"
+            },
+            "python": "${workspaceFolder}/cortexAI/backend/.venv/bin/python"
+        },
+        {
+            "name": "Launch: Agent Service (:8003)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/cortexAI/backend/services/agent/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "subProcess": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/cortexAI/backend"
+            },
+            "python": "${workspaceFolder}/cortexAI/backend/.venv/bin/python"
+        }
+    ]
+}
