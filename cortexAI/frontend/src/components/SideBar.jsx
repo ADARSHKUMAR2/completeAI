@@ -1,4 +1,4 @@
-import { PanelLeftIcon, PenSquare, Plus, User } from "lucide-react"
+import { PanelLeftIcon, PenSquare, Plus, User, Coins, LogOut } from "lucide-react"
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from "react";
@@ -133,6 +133,17 @@ function SideBar() {
                 <p className='text-[13.5px] font-semibold text-slate-100 truncate'>{userData?.name || "User"}</p>
                 <p className='text-[11px] text-slate-600 mt-px'>{"Free Tier"}</p>
               </div>
+
+              <div className='flex gap-1'>
+                <button className='flex items-center justify-center w-7 h-7 rounded-[7px] border-none bg-transparent text-yellow-600 cursor-pointer hover:bg-white/[0.08] hover:text-slate-400 transition-all duration-150'>
+                  <Coins size={16} />
+                </button>
+
+                <button className='flex items-center justify-center w-7 h-7 rounded-[7px] border-none bg-transparent text-slate-600 cursor-pointer hover:bg-white/[0.08] hover:text-slate-400 transition-all duration-150'>
+                  <LogOut size={16} />
+                </button>
+              </div>
+
             </div>
           ) : (
             <button className='w-full text-center text-sm font-medium text-slate-300 bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.06] rounded-xl py-2 cursor-pointer transition-colors duration-150'>
