@@ -50,7 +50,7 @@ function ChatInput() {
                     placeholder='Ask Anything...'
 
                     onChange={(e) => setValue(e.target.value)}
-                    value={value.trim()}
+                    value={value}
 
                     className='w-full bg-transparent outline-none resize-none text-[14px] text-slate-200 placeholder:text-slate-600 leading-relaxed [scrollbar-width:none] [&::-webkit-scrollbar]:hidden disabled:opacity-50'
                     rows={3}

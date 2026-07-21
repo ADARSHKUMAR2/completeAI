@@ -105,7 +105,7 @@ async def get_messages(body: GetMessagesSchema) -> List[Message]:
         # Beanie: Using standard descending sort ("-created_at")
         messages = await Message.find(
             Message.conversation_id == PydanticObjectId(body.conversationId)
-        ).sort("-created_at").to_list()
+        ).to_list()
         
         return messages
         

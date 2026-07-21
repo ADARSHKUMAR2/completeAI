@@ -1,5 +1,6 @@
 import React from 'react'
 import { Bot, User } from 'lucide-react'
+import Markdown from 'react-markdown'
 
 // 🚀 Destructure { role, content } from props
 function MessageBubble({ role, content }) {
@@ -21,7 +22,7 @@ function MessageBubble({ role, content }) {
                     : 'bg-white/[0.04] border border-white/[0.08] text-slate-200 rounded-tl-xs'
                     }`}
             >
-                {content}
+                <Markdown>{content}</Markdown>
             </div>
 
             {/* User Avatar */}
