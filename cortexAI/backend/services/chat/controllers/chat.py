@@ -113,31 +113,25 @@ async def get_messages(conversation_id: str) -> List[Message]:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"get messages error {str(error)}"
         )
-    
+   
 async def update_conversation(body: UpdateConversationSchema) -> Conversation:
-    """
-    Updates the title of a specific conversation workspace.
-    """
     try:
-        # 1. Look up the document by its unique MongoDB ObjectId
-        conversation = await Conversation.get(body.id)
+        # Find document by ID and apply $set directly
+        conversation = await Conversation.get(PydanticObjectId(body.id))
         
-        # 2. Handle the case where the conversation doesn't exist
         if not conversation:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Conversation not found"
             )
         
-        # 3. Update the field and save changes back to MongoDB
-        conversation.title = body.title
-        await conversation.save()
+        # Performs atomic update directly in DB and syncs Python model
+        await conversation.set({Conversation.title: body.title})
         
-        # 4. Return the freshly updated document
         return conversation
         
     except HTTPException:
-        raise  # Re-raise our 404 if triggered
+        raise
     except Exception as error:
         print(f"❌ Error updating conversation: {error}")
         raise HTTPException(

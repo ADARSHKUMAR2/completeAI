@@ -6,6 +6,8 @@ import { addMessage } from '../redux/messageSlice'
 import { useDispatch } from 'react-redux'
 import { setSelectedConversation, addConversation } from '../redux/conversationSlice'
 import { createConversation } from '../features/createConversation'
+import { setConvTitle } from '../redux/conversationSlice'
+import { updateConversation } from '../features/updateConversation'
 
 function ChatInput() {
     const [value, setValue] = useState("")
@@ -29,6 +31,17 @@ function ChatInput() {
                 console.error("Failed to create conversation:", err)
                 return
             }
+        }
+
+        if (conversation.title === "New Chat") {
+            const conv = await updateConversation({
+                id: conversation?._id,
+                title: value.trim()
+            })
+            dispatch(setConvTitle({
+                conversationId: conversation?._id,
+                title: value.slice(0, 20)
+            }))
         }
 
         // 2. Prepare payload targeting the resolved conversation ID
