@@ -1,13 +1,13 @@
 import os
 import httpx
 from fastapi import HTTPException, status
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from graph.graph import agent_app
 
 # 1. Define the incoming request schema validation payload
 class AgentRequestPayload(BaseModel):
     prompt: str
-    conversationId: str
+    conversationId: str 
 
 # 2. Main execution controller
 async def handle_agent_request(payload: AgentRequestPayload):

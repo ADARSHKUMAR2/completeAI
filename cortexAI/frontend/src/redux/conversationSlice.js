@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const conversationSlice = createSlice({
   name: 'conversation',
@@ -7,7 +7,7 @@ const conversationSlice = createSlice({
     selectedConversation: null
   },
   reducers: {
-        setConversations: (state, action) => {
+    setConversations: (state, action) => {
       state.conversations = action.payload
     },
     addConversation: (state, action) => {

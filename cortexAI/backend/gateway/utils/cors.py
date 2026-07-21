@@ -14,7 +14,7 @@ def register_cors(app: FastAPI):
     # Register the middleware onto the provided app instance
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=origins,
+        allow_origins=["*"],
         allow_credentials=True,  # Crucial for matching Axios `withCredentials`
         allow_methods=["*"],
         allow_headers=["*"],

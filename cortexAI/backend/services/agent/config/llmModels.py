@@ -9,7 +9,7 @@ load_dotenv()
 # 1. Initialize the LLM client instances
 # (Note: Standard Groq models include llama3-8b-8192, llama-3.1-70b-versatile, etc.)
 groq_llm = ChatGroq(
-    model="llama-3.1-70b-versatile",
+    model="llama-3.3-70b-versatile",
     temperature=0
 )
 

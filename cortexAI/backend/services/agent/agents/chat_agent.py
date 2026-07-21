@@ -21,8 +21,8 @@ async def chat_node(state: AgentState) -> dict:
     print("💬 Chat Agent processing message text...")
     
     try:
-        # 4. Asynchronously invoke the LangChain instance
-        response = await llm.ainvoke(messages)
+        # 4. Invoke the LangChain instance using the synchronous API supported by these models
+        response = llm.invoke(messages)
         
         # 5. Return the text update target back into your state schema
         return {"aiResponse": response.content}

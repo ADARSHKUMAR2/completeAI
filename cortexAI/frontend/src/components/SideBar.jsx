@@ -21,13 +21,19 @@ function SideBar() {
     const getConv = async () => {
       const data = await getConversations()
       dispatch(setConversations(data))
+      if (!selectedConversation) {
+        dispatch(setSelectedConversation(data[0]))
+      }
     }
     getConv()
   }, [userData?._id])
 
   const handleCreateConversation = async () => {
     const data = await createConversation()
-    dispatch(addConversation(data))
+    if (data) {
+      dispatch(addConversation(data))
+      dispatch(setSelectedConversation(data))
+    }
   }
 
   const handleLogOut = async () => {

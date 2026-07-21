@@ -14,7 +14,7 @@ async def router_node(state: AgentState) -> dict:
     then updates the state memory with the routed destination.
     """
     # Fetch the model mapped specifically for the supervisor gateway
-    base_llm = await get_model("chat") 
+    base_llm = get_model("chat")
     
     # Force the LLM to strictly output our Pydantic structural format
     structured_llm = base_llm.with_structured_output(RouterDecision)
@@ -42,8 +42,8 @@ async def router_node(state: AgentState) -> dict:
     print(f"🔮 Router evaluating: '{state.get('prompt', '')}'")
     
     try:
-        # Run the LLM structured query invocation
-        decision: RouterDecision = await structured_llm.ainvoke(messages)
+        # Run the LLM structured query invocation using the compatible synchronous API
+        decision: RouterDecision = structured_llm.invoke(messages)
         print(f"🎯 Router picked: {decision.selected_agent}")
         
         # Return the update back to the LangGraph dictionary state

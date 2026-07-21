@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
 # 3. Instantiate the FastAPI app
 app = FastAPI(lifespan=lifespan)
 
-app.include_router(agent_router, tags=["agent"])
+app.include_router(agent_router,prefix="/agent", tags=["agent"])
 
 # 4. Root fallback endpoint (Matches app.get("/") in your image)
 @app.get("/")
