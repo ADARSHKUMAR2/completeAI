@@ -2,22 +2,45 @@ import React, { useState } from 'react'
 import { Paperclip, Mic, Send } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import sendMessage from '../features/sendMessage'
+import { addMessage } from '../redux/messageSlice'
+import { useDispatch } from 'react-redux'
 
 function ChatInput() {
     const [value, setValue] = useState("")
     const { selectedConversation } = useSelector(state => state.conversation)
+    const dispatch = useDispatch()
 
     const handleSendMessage = async () => {
-        if (!value.trim()) return
+        // 1. Create textPayload variable
+        const textPayload = value.trim()
+        if (!textPayload) return
 
-        const payload = {
-            prompt: value.trim(),
-            conversationId: selectedConversation?._id || ""
+        // 2. Dispatch user message to UI state immediately
+        dispatch(addMessage({
+            role: "user",
+            content: textPayload
+        }))
+
+        // Clear input text field
+        setValue("")
+
+        // 3. Fire a SINGLE request to the Agent
+        try {
+            const payloadData = await sendMessage({
+                prompt: textPayload,
+                conversationId: selectedConversation?._id || ""
+            })
+
+            // 4. Dispatch AI response to UI state once received
+            if (payloadData?.response) {
+                dispatch(addMessage({
+                    role: "assistant",
+                    content: payloadData.response
+                }))
+            }
+        } catch (error) {
+            console.error("Failed to send message:", error)
         }
-
-        const data = await sendMessage(payload)
-        console.log(data)
-
     }
 
     return (

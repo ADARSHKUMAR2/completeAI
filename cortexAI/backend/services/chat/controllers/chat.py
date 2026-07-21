@@ -82,7 +82,7 @@ async def save_message(body: SaveMessageSchema) -> Message:
     try:
         # Instantiate and save into MongoDB (Mongoose: Message.create)
         new_message = Message(
-            conversation_id=body.conversationId,
+            conversation_id=PydanticObjectId(body.conversationId),
             role=body.role,
             content=body.content
         )
@@ -104,7 +104,7 @@ async def get_messages(body: GetMessagesSchema) -> List[Message]:
         # Mongoose: Message.find({ conversationId }).sort({ createdAt: -1 })
         # Beanie: Using standard descending sort ("-created_at")
         messages = await Message.find(
-            Message.conversation_id == body.conversationId
+            Message.conversation_id == PydanticObjectId(body.conversationId)
         ).sort("-created_at").to_list()
         
         return messages
