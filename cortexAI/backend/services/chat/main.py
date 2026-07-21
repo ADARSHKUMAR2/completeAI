@@ -9,6 +9,8 @@ from pathlib import Path
 import sys
 from shared.redis.redis import init_redis
 from routes.chat import router as chat_router
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 
 # 1. Load environment variables
 load_dotenv()
@@ -39,6 +41,11 @@ async def root():
 
 def main():
     uvicorn.run("main:app", host="127.0.0.1", port=PORT, reload=True)
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    print("❌ 422 Validation Error Details:", exc.errors())
+    return JSONResponse(status_code=422, content={"detail": exc.errors()})
 
 if __name__ == "__main__":
     main()

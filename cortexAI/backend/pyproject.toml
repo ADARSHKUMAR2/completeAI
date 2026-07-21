@@ -24,6 +24,7 @@ dependencies = [
     "langchain-google-genai>=4.2.7",
     "debugpy>=1.8.21",
     "rich>=15.0.0",
+    "langchain-tavily>=0.2.18",
 ]
 
 # This lets uv know it should treat the whole backend folder as the single search path

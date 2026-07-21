@@ -4,6 +4,8 @@ from config.memory import get_memory
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from pprint import pprint
 from rich import print
+import json
+from datetime import datetime
 
 async def chat_node(state: AgentState) -> dict:
     """
@@ -13,9 +15,32 @@ async def chat_node(state: AgentState) -> dict:
     # 1. Fetch the configured chat model (Groq)
     llm = get_model("chat")
     
+    search_results = state.get("search_results") or state.get("searchResults")
+
+    if search_results:
+        search_context = (
+            f"\n=== LIVE WEB SEARCH RESULTS ===\n"
+            f"{json.dumps(search_results, indent=2)}\n"
+            f"===============================\n\n"
+            f"STRICT SEARCH RULES:\n"
+            f"1. You MUST use the LIVE WEB SEARCH RESULTS above to answer the user.\n"
+            f"2. The search results contain factual real-time information. Do NOT state that an event has not occurred if results show it has.\n"
+            f"3. Do NOT mention internal tools, JSON, or Tavily in your response."
+        )
+    else:
+        search_context = ""
+
+    current_date_str = datetime.now().strftime('%B %d, %Y')
     # 2. Define the agent system persona instructions
-    system_prompt = """
+    system_prompt = f"""
     You are CortexAI, an intelligent AI assistant. 
+    Current Date: {current_date_str}\n
+
+    {search_context}
+
+    If searchContext exists:
+    - Use the search results to answer the user's question.
+    - Do not mention internal tools.
 
     Rules:
 

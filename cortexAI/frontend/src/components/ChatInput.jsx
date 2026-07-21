@@ -48,7 +48,8 @@ function ChatInput() {
         // 2. Prepare payload targeting the resolved conversation ID
         const payload = {
             prompt: textPayload,
-            conversationId: conversation?._id || ""
+            conversationId: conversation?._id || "",
+            agent: selectedAgent.toLowerCase()
         }
 
         // 3. Dispatch user message to UI immediately & clear input
@@ -61,11 +62,13 @@ function ChatInput() {
         // 4. Send request to Agent and update UI on response
         try {
             const data = await sendMessage(payload)
+            console.log(data)
 
-            if (data?.response) {
+            if (data?.answer) {
                 dispatch(addMessage({
                     role: "assistant",
-                    content: data.response
+                    content: data.answer,
+                    images: data.images
                 }))
             }
         } catch (error) {

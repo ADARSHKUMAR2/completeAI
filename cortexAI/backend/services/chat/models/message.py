@@ -4,6 +4,7 @@ from pydantic import Field
 from beanie import Document, PydanticObjectId, Link
 from models.conversation import Conversation
 from pydantic import Field, ConfigDict
+from typing import List, Optional
 
 class ChatRole(str, Enum):
     USER = "user"
@@ -18,6 +19,7 @@ class Message(Document):
     
     role: ChatRole
     content: str
+    images: Optional[List[str]] = []
     
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
@@ -26,6 +28,6 @@ class Message(Document):
         populate_by_name=True,
         arbitrary_types_allowed=True
     )
-    
+
     class Settings:
         name = "messages"  # This sets the MongoDB collection name

@@ -3,12 +3,14 @@ from models.conversation import Conversation
 from typing import List
 from pydantic import BaseModel
 from beanie import PydanticObjectId
+from typing import Optional
 from models.message import ChatRole, Message
 
 class SaveMessageSchema(BaseModel):
     conversationId: PydanticObjectId
     role: ChatRole
     content: str
+    images: Optional[List[str]]
 
 class GetMessagesSchema(BaseModel):
     conversationId: PydanticObjectId
@@ -84,7 +86,8 @@ async def save_message(body: SaveMessageSchema) -> Message:
         new_message = Message(
             conversation_id=PydanticObjectId(body.conversationId),
             role=body.role,
-            content=body.content
+            content=body.content,
+            images=body.images or []
         )
         await new_message.insert()
         return new_message

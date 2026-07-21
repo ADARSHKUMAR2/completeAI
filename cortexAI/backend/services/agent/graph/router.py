@@ -13,6 +13,14 @@ async def router_node(state: AgentState) -> dict:
     Analyzes the incoming prompt using an LLM and structured tools, 
     then updates the state memory with the routed destination.
     """
+
+    agent = state.get("agent")
+    if agent and agent != "auto":
+        return {
+            **state,
+            "agent": agent
+        }
+
     # Fetch the model mapped specifically for the supervisor gateway
     base_llm = get_model("chat")
     
