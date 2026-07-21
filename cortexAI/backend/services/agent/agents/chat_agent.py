@@ -1,5 +1,9 @@
 from graph.state import AgentState
 from config.llmModels import get_model
+from config.memory import get_memory
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+from pprint import pprint
+from rich import print
 
 async def chat_node(state: AgentState) -> dict:
     """
@@ -14,7 +18,7 @@ async def chat_node(state: AgentState) -> dict:
     You are CortexAI, an intelligent AI assistant. 
 
     Rules:
-    
+
     - For simple questions, greetings, and short queries, respond naturally in plain text.
     - For technical, educational, coding, or detailed topics, use clean Markdown.
 
@@ -37,11 +41,29 @@ async def chat_node(state: AgentState) -> dict:
     - Never generate large walls of text.
 """
     
+    conversation_id = state.get("conversationId")
+
+    history = await get_memory(conversation_id) if conversation_id else []
+
     # 3. Build the payload array utilizing clean message roles
     messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": state.get("prompt", "")}
+        SystemMessage(content=system_prompt)
     ]
+
+    if history:
+        for msg in history:
+            role = msg.get("role")
+            content = msg.get("content", "")
+            
+            if role == "user":
+                messages.append(HumanMessage(content=content))
+            else:
+                messages.append(AIMessage(content=content))
+
+    prompt = state.get("prompt", "")
+    messages.append(HumanMessage(content=prompt))
+
+    # print("💬 messages", messages)
     
     print("💬 Chat Agent processing message text...")
     

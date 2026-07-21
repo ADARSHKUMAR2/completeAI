@@ -16,9 +16,9 @@ async def handle_get_conversations(conversations = Depends(get_conversations)):
 async def handle_save_message(body: SaveMessageSchema):
     return await save_message(body)
 
-@router.post("/message/get")
-async def handle_get_messages(body: GetMessagesSchema):
-    return await get_messages(body)
+@router.get("/message/get/{conversation_id}")
+async def handle_get_messages(conversation_id: str):
+    return await get_messages(conversation_id)
 
 @router.put("/update")
 async def handle_update_conversation(body: UpdateConversationSchema):

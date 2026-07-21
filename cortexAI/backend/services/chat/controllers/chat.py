@@ -96,15 +96,13 @@ async def save_message(body: SaveMessageSchema) -> Message:
             detail=f"save message error {str(error)}"
         )
 
-async def get_messages(body: GetMessagesSchema) -> List[Message]:
+async def get_messages(conversation_id: str) -> List[Message]:
     """
     Retrieves all messages for a specific conversation, ordered newest first.
     """
     try:
-        # Mongoose: Message.find({ conversationId }).sort({ createdAt: -1 })
-        # Beanie: Using standard descending sort ("-created_at")
         messages = await Message.find(
-            Message.conversation_id == PydanticObjectId(body.conversationId)
+            Message.conversation_id == PydanticObjectId(conversation_id)
         ).to_list()
         
         return messages

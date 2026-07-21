@@ -1,12 +1,11 @@
 import api from '../../utils/axios'
 
-async function getMessages(id) {
+export const getMessages = async (conversationId) => {
   try {
-    const { data } = await api.post("/chat/message/get", { conversationId: id })
-    console.log(data)
+    const { data } = await api.get(`/chat/message/get/${conversationId}`)
     return data
   } catch (error) {
-    console.log(error)
+    console.error("Error fetching messages:", error)
     return []
   }
 }

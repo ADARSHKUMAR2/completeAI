@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 from config.db import connect_db  # We will update/create this next
 from routes.agent_Route import agent_router
+from shared.redis.redis import init_redis
 
 # 1. Load environment variables
 load_dotenv()
@@ -16,6 +17,7 @@ async def lifespan(app: FastAPI):
     # This block executes BEFORE the server starts taking requests
     print(f"🤖 agent started at {PORT}")
     await connect_db()
+    await init_redis()
     yield
     # Any necessary cleanup code on shutdown goes here
 
