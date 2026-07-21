@@ -4,38 +4,54 @@ import { useSelector } from 'react-redux'
 import sendMessage from '../features/sendMessage'
 import { addMessage } from '../redux/messageSlice'
 import { useDispatch } from 'react-redux'
+import { setSelectedConversation, addConversation } from '../redux/conversationSlice'
+import { createConversation } from '../features/createConversation'
 
 function ChatInput() {
     const [value, setValue] = useState("")
     const { selectedConversation } = useSelector(state => state.conversation)
+    const { messages } = useSelector(state => state.message)
     const dispatch = useDispatch()
 
     const handleSendMessage = async () => {
-        // 1. Create textPayload variable
         const textPayload = value.trim()
         if (!textPayload) return
 
-        // 2. Dispatch user message to UI state immediately
+        // 1. Auto-create conversation if no active conversation exists
+        let conversation = selectedConversation
+        if (!conversation) {
+            try {
+                const conv = await createConversation()
+                dispatch(setSelectedConversation(conv))
+                dispatch(addConversation(conv))
+                conversation = conv
+            } catch (err) {
+                console.error("Failed to create conversation:", err)
+                return
+            }
+        }
+
+        // 2. Prepare payload targeting the resolved conversation ID
+        const payload = {
+            prompt: textPayload,
+            conversationId: conversation?._id || ""
+        }
+
+        // 3. Dispatch user message to UI immediately & clear input
         dispatch(addMessage({
             role: "user",
             content: textPayload
         }))
-
-        // Clear input text field
         setValue("")
 
-        // 3. Fire a SINGLE request to the Agent
+        // 4. Send request to Agent and update UI on response
         try {
-            const payloadData = await sendMessage({
-                prompt: textPayload,
-                conversationId: selectedConversation?._id || ""
-            })
+            const data = await sendMessage(payload)
 
-            // 4. Dispatch AI response to UI state once received
-            if (payloadData?.response) {
+            if (data?.response) {
                 dispatch(addMessage({
                     role: "assistant",
-                    content: payloadData.response
+                    content: data.response
                 }))
             }
         } catch (error) {
