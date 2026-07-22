@@ -102,6 +102,22 @@ function MessageBubble({ role, content, images }) {
                                 <ExternalLink size={14} />
                             </a>
                         ),
+                        img: ({ src }) => {
+                            if (!src) return null;
+                            return (
+                                <img
+                                    src={src}
+                                    onClick={() => setLightBox(src)}
+                                    loading="lazy"
+                                    onError={(e) => {
+                                        console.error("Failed to load image from src:", src);
+                                        // Fallback or leave visible so you can inspect
+                                        e.currentTarget.style.border = "2px solid red";
+                                    }}
+                                    className="w-40 h-28 rounded-xl object-cover border border-white/10 cursor-zoom-in hover:opacity-90"
+                                />
+                            )
+                        },
                         code: ({ className, children }) => {
                             const value = String(children).trim();
 
@@ -164,28 +180,32 @@ function MessageBubble({ role, content, images }) {
                 </Markdown>
             </div>
 
-            {lightBox && (
-                <div className='fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6'>
-                    <button
-                        className='absolute top-5 right-5 text-white/80 hover:text-white bg-white/10 rounded-full p-2'
-                        onClick={() => setLightBox(null)}
-                    >
-                        <X />
-                    </button>
-                    <img
-                        src={lightBox}
-                        className="max-w-[90vw] max-h-[85vh] rounded-2xl border border-white/10 shadow-2xl object-contain"
-                    />
-                </div>
-            )}
+            {
+                lightBox && (
+                    <div className='fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6'>
+                        <button
+                            className='absolute top-5 right-5 text-white/80 hover:text-white bg-white/10 rounded-full p-2'
+                            onClick={() => setLightBox(null)}
+                        >
+                            <X />
+                        </button>
+                        <img
+                            src={lightBox}
+                            className="max-w-[90vw] max-h-[85vh] rounded-2xl border border-white/10 shadow-2xl object-contain"
+                        />
+                    </div>
+                )
+            }
 
             {/* User Avatar */}
-            {isUser && (
-                <div className='w-8 h-8 rounded-lg bg-white/[0.06] border border-white/[0.08] flex items-center justify-center shrink-0 text-slate-400 mt-1'>
-                    <User size={16} />
-                </div>
-            )}
-        </div>
+            {
+                isUser && (
+                    <div className='w-8 h-8 rounded-lg bg-white/[0.06] border border-white/[0.08] flex items-center justify-center shrink-0 text-slate-400 mt-1'>
+                        <User size={16} />
+                    </div>
+                )
+            }
+        </div >
     )
 }
 

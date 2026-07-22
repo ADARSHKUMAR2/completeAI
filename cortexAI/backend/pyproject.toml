@@ -27,6 +27,8 @@ dependencies = [
     "langchain-tavily>=0.2.18",
     "langchain-openrouter>=0.2.6",
     "boto3>=1.43.53",
+    "reportlab>=5.0.0",
+    "pdfkit>=1.0.0",
 ]
 
 # This lets uv know it should treat the whole backend folder as the single search path

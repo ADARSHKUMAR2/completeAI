@@ -63,9 +63,7 @@ User Request:
     # 8. Return updated state dictionary
     return {
         **state,
-        "aiResponse": f"""# 🖼️ Image Generated Successfully
-
-![Generated Image]({download_url})
+        "aiResponse": f"""
 
 💾 [Download Image]({download_url})
 
