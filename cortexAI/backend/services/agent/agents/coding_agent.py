@@ -103,6 +103,7 @@ User Request:
         {
             "id": int(time.time() * 1000),  # Equivalent to Date.now() in JS (milliseconds)
             "type": "Project",
+            "title": state.get("prompt", "New Title"),
             "files": data.get("files", [])   # Safe get with default fallback []
         }
     ]

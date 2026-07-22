@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Paperclip, Mic, Send, Code2, Globe, Zap, MessageSquare, FileText, Presentation, ImageIcon } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import sendMessage from '../features/sendMessage'
-import { addMessage } from '../redux/messageSlice'
+import { addMessage, setArtifacts, setMessages } from '../redux/messageSlice'
 import { useDispatch } from 'react-redux'
 import { setSelectedConversation, addConversation } from '../redux/conversationSlice'
 import { createConversation } from '../features/createConversation'
@@ -18,7 +18,8 @@ function ChatInput() {
 
     const handleSendMessage = async () => {
         const textPayload = value.trim()
-        if (!textPayload) return
+        if (!textPayload)
+            return
 
         // 1. Auto-create conversation if no active conversation exists
         let conversation = selectedConversation
@@ -64,12 +65,20 @@ function ChatInput() {
             const data = await sendMessage(payload)
             console.log(data)
 
-            if (data?.answer) {
-                dispatch(addMessage({
-                    role: "assistant",
-                    content: data?.answer,
-                    images: data?.images
-                }))
+            const assistantContent = data?.answer || data?.aiResponse || ""
+            const artifacts = data?.artifacts || []
+
+            // 1. Append assistant response to messages list
+            dispatch(addMessage({
+                role: "assistant",
+                content: assistantContent,
+                images: data?.images,
+                artifacts: artifacts
+            }))
+
+            // 2. Set artifacts state if present in the response
+            if (artifacts.length > 0) {
+                dispatch(setArtifacts(artifacts))
             }
         } catch (error) {
             console.error("Failed to send message:", error)

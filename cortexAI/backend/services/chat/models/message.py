@@ -19,6 +19,7 @@ class FileSchema(BaseModel):
 class ArtifactSchema(BaseModel):
     id: int
     type: str
+    title: str
     files: List[FileSchema] = Field(default_factory=list)
 
 class Message(Document):
