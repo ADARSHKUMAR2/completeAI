@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openrouter import ChatOpenRouter
 
 # Load environment variables (API keys)
 load_dotenv()
@@ -16,6 +17,14 @@ groq_llm = ChatGroq(
 gemini_llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
     temperature=0
+)
+
+openrouter_llm = ChatOpenRouter(
+    model="deepseek/deepseek-chat",
+    temperature=0,
+    max_tokens=2500,
+    max_retries=2,
+    # other params...
 )
 
 # 2. Dynamic Model Dispatcher (Replicates the switch statement in JS)

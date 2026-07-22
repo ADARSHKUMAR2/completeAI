@@ -5,12 +5,14 @@ from pydantic import BaseModel
 from beanie import PydanticObjectId
 from typing import Optional
 from models.message import ChatRole, Message
+from models.message import ArtifactSchema
 
 class SaveMessageSchema(BaseModel):
     conversationId: PydanticObjectId
     role: ChatRole
     content: str
-    images: Optional[List[str]]
+    images: Optional[List[str]] = []
+    artifacts: Optional[List[ArtifactSchema]] = []
 
 class GetMessagesSchema(BaseModel):
     conversationId: PydanticObjectId
@@ -87,7 +89,8 @@ async def save_message(body: SaveMessageSchema) -> Message:
             conversation_id=PydanticObjectId(body.conversationId),
             role=body.role,
             content=body.content,
-            images=body.images or []
+            images=body.images or [],
+            artifacts=body.artifacts or []
         )
         await new_message.insert()
         return new_message

@@ -25,6 +25,7 @@ dependencies = [
     "debugpy>=1.8.21",
     "rich>=15.0.0",
     "langchain-tavily>=0.2.18",
+    "langchain-openrouter>=0.2.6",
 ]
 
 # This lets uv know it should treat the whole backend folder as the single search path

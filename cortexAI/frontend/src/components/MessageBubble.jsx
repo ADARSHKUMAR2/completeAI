@@ -8,6 +8,7 @@ import { ExternalLink } from 'lucide-react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { Copy, Check } from 'lucide-react'
 import { Prism as SyntaxHighlighterBase } from 'react-syntax-highlighter'
+import { vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 // 🚀 Destructure { role, content } from props
 function MessageBubble({ role, content, images }) {

@@ -15,3 +15,4 @@ class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]
     search_results: List[dict]
     images: List[str]
+    artifacts: List[str]
