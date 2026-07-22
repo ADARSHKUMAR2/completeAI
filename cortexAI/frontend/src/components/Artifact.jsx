@@ -42,6 +42,12 @@ function Artifact() {
                       </body>
                       </html>`
 
+  const handleCopyCode = async () => {
+    await navigator.clipboard.writeText(file?.content)
+    setCopied(true)
+    setTimeout(() => setCopiedCode(false), 2000)
+  }
+
   const detectLanguage = (name = "") => {
     const lowerName = name.toLowerCase();
 
