@@ -58,7 +58,7 @@ User Request:
 
     # 7. Call synchronous S3 functions WITHOUT 'await'
     upload_to_s3(filename, buffer, "image/png")
-    download_url = get_from_s3(filename, 24 * 60 * 60)
+    download_url = get_from_s3(filename, 60 * 60)
 
     # 8. Return updated state dictionary
     return {

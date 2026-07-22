@@ -1,10 +1,8 @@
+# utils/getFrom_AWS.py
 import os
 from config.aws_bucketHandler import s3
-from dotenv import load_dotenv  
 
-load_dotenv()
-
-def get_from_s3(filename, expires_in=600):  # 👈 Remove 'async'
+def get_from_s3(filename: str, expires_in: int = 3600): # 👈 Reduced from 86400 to 3600
     url = s3.generate_presigned_url(
         ClientMethod="get_object",
         Params={
