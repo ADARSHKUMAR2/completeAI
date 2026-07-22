@@ -67,8 +67,8 @@ function ChatInput() {
             if (data?.answer) {
                 dispatch(addMessage({
                     role: "assistant",
-                    content: data.answer,
-                    images: data.images
+                    content: data?.answer,
+                    images: data?.images
                 }))
             }
         } catch (error) {

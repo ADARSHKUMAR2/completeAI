@@ -3,11 +3,24 @@ import { Bot, User } from 'lucide-react'
 import Markdown from 'react-markdown'
 import { useState } from 'react'
 import { X } from 'lucide-react'
+import remarkGfm from 'remark-gfm'
+import { ExternalLink } from 'lucide-react'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { Copy, Check } from 'lucide-react'
+import { Prism as SyntaxHighlighterBase } from 'react-syntax-highlighter'
 
 // 🚀 Destructure { role, content } from props
 function MessageBubble({ role, content, images }) {
     const isUser = role === 'user'
     const [lightBox, setLightBox] = useState(null)
+    const [copiedCode, setCopiedCode] = useState("")
+
+    const copyCode = async (code) => {
+        await navigator.clipboard.writeText(code)
+        setCopiedCode(code)
+        setTimeout(() => setCopiedCode(""), 2000)
+    }
+
 
     return (
         <div className={`flex gap-3 max-w-3xl mx-auto py-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -26,7 +39,7 @@ function MessageBubble({ role, content, images }) {
                     }`}
             >
 
-                {images.length > 0 && (
+                {images?.length > 0 && (
                     <div className='flex flex-wrap gap-3 mt-4'>
                         {images.map((img, i) => (
                             <img
@@ -41,7 +54,113 @@ function MessageBubble({ role, content, images }) {
                     </div>
                 )}
 
-                <Markdown>{content}</Markdown>
+                <Markdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                        h1: ({ children }) => (
+                            <h1 className="text-2xl font-bold mt-5 mb-3">{children}</h1>
+                        ),
+                        h2: ({ children }) => (
+                            <h2 className="text-xl font-semibold mt-4 mb-2">{children}</h2>
+                        ),
+                        h3: ({ children }) => (
+                            <h3 className="text-lg font-semibold mt-3 mb-2">{children}</h3>
+                        ),
+                        p: ({ children }) => (
+                            <p className="mb-3 whitespace-pre-wrap break-words">{children}</p>
+                        ),
+                        ul: ({ children }) => (
+                            <ul className="list-disc pl-5 space-y-1 my-2">{children}</ul>
+                        ),
+                        ol: ({ children }) => (
+                            <ol className='list-decimal pl-5 space-y-1 my-2'>{children}</ol>
+                        ),
+                        table: ({ children }) => (
+                            <div className='overflow-x-auto my-4'>
+                                <table className='min-w-full border border-white/10'>
+                                    {children}
+                                </table>
+                            </div>
+                        ),
+                        th: ({ children }) => (
+                            <th className='border border-white/10 bg-white/5 px-3 py-2 text-left'>
+                                {children}
+                            </th>
+                        ),
+                        td: ({ children }) => (
+                            <td className='border border-white/10 px-3 py-2'>{children}</td>
+                        ),
+                        a: ({ href, children }) => (
+                            <a
+                                href={href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-indigo-400 underline inline-flex items-center gap-1"
+                            >
+                                {children}
+                                <ExternalLink size={14} />
+                            </a>
+                        ),
+                        code: ({ className, children }) => {
+                            const value = String(children).trim();
+
+                            if (!className) {
+                                return (
+                                    <code className='px-1.5 py-0.5 rounded bg-white/10 text-indigo-200'>
+                                        {value}
+                                    </code>
+                                )
+                            }
+
+                            const language = className?.replace("language-", "")
+
+                            return (
+                                <div className='my-4 overflow-hidden rounded-xl border border-white/10 bg-[#111318]'>
+                                    <div className='flex items-center justify-between bg-[#1b1d24] border-b border-white/10 px-4 py-2'>
+                                        <span className='uppercase text-xs text-slate-400'>
+                                            {language}
+                                        </span>
+                                        <button className='flex items-center gap-1 text-xs'
+                                            onClick={() => copyCode(value)}
+                                        >
+                                            {
+                                                copiedCode == value ?
+                                                    <>
+                                                        <Check size={14} />
+                                                        Copied
+                                                    </> :
+                                                    <><Copy size={14} />Copy</>
+                                            }
+                                        </button>
+                                    </div>
+
+                                    <SyntaxHighlighter
+                                        language={language}
+                                        style={vs}
+                                        customStyle={{
+                                            backgroundColor: "#1b1d24",
+                                            padding: "1rem",
+                                            borderRadius: "0.5rem",
+                                            fontSize: "0.9rem",
+                                            lineHeight: "1.5rem",
+                                            overflow: "auto",
+                                            whiteSpace: "pre-wrap",
+                                            wordBreak: "break-word",
+                                            wordWrap: "break-word",
+                                        }}
+                                    >
+                                        {value}
+                                    </SyntaxHighlighter>
+
+                                </div>
+                            )
+                        }
+
+
+                    }}
+                >
+                    {content}
+                </Markdown>
             </div>
 
             {lightBox && (

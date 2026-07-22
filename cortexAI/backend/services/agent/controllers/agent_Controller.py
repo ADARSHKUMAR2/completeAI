@@ -20,7 +20,7 @@ async def handle_agent_request(payload: AgentRequestPayload):
     
     # B. Save to MongoDB (via Chat Microservice)
     # Step A: Save user query thread state via internal microservice call (Axios equivalent)
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=30.0) as client:
         try:
             save_payload = {
                 "conversationId": payload.conversationId,
@@ -76,7 +76,7 @@ async def handle_agent_request(payload: AgentRequestPayload):
 
         # B. Save AI response to MongoDB (via Chat Microservice)
         # STEP E: Save AI assistant response to the database
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=30.0) as client:
             if payload.conversationId and payload.conversationId.strip() != "":
                 try:
                     save_ai_payload = {

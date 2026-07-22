@@ -3,6 +3,8 @@ from fastapi import FastAPI, Request, Response
 from fastapi.params import Depends
 from middleware.auth import protect
 
+PROXY_TIMEOUT = httpx.Timeout(60.0, connect=10.0)
+
 def register_proxy(app: FastAPI, path_prefix: str, target_url: str):
     """
     Dynamically registers a catch-all async reverse proxy route onto the FastAPI app.
@@ -11,7 +13,7 @@ def register_proxy(app: FastAPI, path_prefix: str, target_url: str):
         register_proxy(app, path_prefix="/auth", target_url="http://127.0.0.1:8001")
     """
     # Create a dedicated, persistent async client for this specific microservice backend
-    async_client = httpx.AsyncClient(base_url=target_url)
+    async_client = httpx.AsyncClient(base_url=target_url, timeout=PROXY_TIMEOUT)
     
     # Formulate the path matcher pattern (e.g., "/auth/{path:path}")
     route_pattern = f"{path_prefix.rstrip('/')}/{{path:path}}"
@@ -51,7 +53,7 @@ def register_proxy_with_header(app: FastAPI, path_prefix: str, target_url: str):
     Reverse proxies a path prefix to a target microservice and 
     injects the authenticated 'X-User-Id' header automatically.
     """
-    async_client = httpx.AsyncClient(base_url=target_url)
+    async_client = httpx.AsyncClient(base_url=target_url, timeout=PROXY_TIMEOUT)
     route_pattern = f"{path_prefix.rstrip('/')}/{{path:path}}"
 
     # Enforce authentication right at the proxy doorstep

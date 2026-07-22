@@ -2,7 +2,7 @@ import React from 'react'
 import { signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider } from "../../utils/firebase";
 // Import BOTH the default client and the AUTH_URL string
-import api from "../../utils/axios"; 
+import api from "../../utils/axios";
 import { FcGoogle } from 'react-icons/fc'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserData } from '../redux/userSlice'
@@ -12,7 +12,7 @@ import Artifact from '../components/Artifact'
 
 function Home() {
 
-  const {userData} = useSelector(state => state.user)
+  const { userData } = useSelector(state => state.user)
   // console.log("User data:", userData)
 
   const dispatch = useDispatch()
@@ -28,7 +28,7 @@ function Home() {
       console.error("API Error:", error.response?.data?.detail || error.message);
     }
   };
- 
+
   const googleLogin = async () => {
     const data = await signInWithPopup(auth, googleProvider)
     const token = await data.user.getIdToken()
@@ -39,11 +39,11 @@ function Home() {
 
   return (
     <div>
-      <div className='h-screen flex bg-[#0d0f14] text-white overflow-hidden'>
+      <div className='h-screen min-w-0 flex bg-[#0d0f14] text-white overflow-hidden'>
 
-<SideBar/>
-<ChatArea/>
-<Artifact/>
+        <SideBar />
+        <ChatArea />
+        <Artifact />
 
         {!userData && <div className='fixed inset-0 z-50 flex flex-col justify-center items-center'>
           <div className='w-[340px] bg-[#13151c] border border-white/10 rounded-2xl p-7 flex flex-col gap-5'>
@@ -53,15 +53,15 @@ function Home() {
             </div>
 
             <button className='flex items-center justify-center w-full bg-[#1e1f25] text-white text-[14px] font-semibold py-3 rounded-2xl' onClick={googleLogin}>
-                <FcGoogle className='mr-2' size={20}/>
-                Continue with Google
+              <FcGoogle className='mr-2' size={20} />
+              Continue with Google
             </button>
           </div>
         </div>}
-        
+
       </div>
     </div>
-   )
+  )
 }
 
 export default Home
