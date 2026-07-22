@@ -26,6 +26,7 @@ dependencies = [
     "rich>=15.0.0",
     "langchain-tavily>=0.2.18",
     "langchain-openrouter>=0.2.6",
+    "boto3>=1.43.53",
 ]
 
 # This lets uv know it should treat the whole backend folder as the single search path

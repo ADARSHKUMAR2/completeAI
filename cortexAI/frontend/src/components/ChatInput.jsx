@@ -129,11 +129,11 @@ function ChatInput() {
 
                 <div className='flex w-[80%] gap-2 pr-2 flex-wrap'>
                     {agents.map((agent) => {
-                        const isActive = selectedAgent === agent.label
+                        const isActive = selectedAgent === agent.id
                         const Icon = agent.icon
                         return (
                             <div
-                                onClick={() => setSelectedAgent(agent.label)}
+                                onClick={() => setSelectedAgent(agent.id)}
                                 className={`
     shrink-0
     cursor-pointer
