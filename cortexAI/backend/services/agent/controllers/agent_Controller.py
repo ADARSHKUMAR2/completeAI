@@ -86,7 +86,7 @@ async def handle_agent_request(payload: AgentRequestPayload):
                         "role": "assistant", # Marked as assistant response
                         "content": ai_output,
                         "images": formatted_images,
-                        "artifacts": payload.artifacts
+                        "artifacts": artifacts
                     }
                     save_ai_res = await client.post(
                         f"{chat_service_url}/chat/message/save",
