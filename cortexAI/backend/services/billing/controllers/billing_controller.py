@@ -152,9 +152,13 @@ async def verify_payment(body: VerifyPaymentSchema):
                 timeout=10.0
             )
 
-            if auth_response.status_code != 200:
-                print(f"⚠️ Warning: Auth service returned status {auth_response.status_code}")
-
+            if auth_response.status_code == 200:
+                auth_data = auth_response.json()
+                print(f"🎉 Payment Verified Successfully: {auth_data}")
+                return {
+                    "message": "Payment Verified",
+                    "user": auth_data.get("user")
+                }
         # 6. Return response
         return {"message": "Payment Verified"}
 

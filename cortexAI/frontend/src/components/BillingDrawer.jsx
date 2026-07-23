@@ -4,6 +4,8 @@ import { X, Check, Zap, Crown } from "lucide-react";
 import { useSelector } from 'react-redux';
 import { verifyPayment } from "../features/verifyPayment";
 import { createOrder } from "../features/createOrder";
+import { setUserData } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
 
 const PLANS = [
     {
@@ -32,46 +34,50 @@ function BillingDrawer({ open, onClose }) {
         Math.max(0, (credits / (userData?.totalCredits || 1)) * 100)
     );
 
+    const dispatch = useDispatch()
     const handleUpgrade = async (planId) => {
         try {
-            // 1. Call createOrder API with selected plan ID
-            const data = await createOrder(planId);
+            const userId = userData?._id || userData?.userId || userData?.id;
+
+            // 1. Pass both planId and userId to createOrder
+            const data = await createOrder(planId, userId);
             console.log("📦 Response from createOrder:", data);
 
             // 2. Configure Razorpay Options
             const options = {
                 key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-                amount: data.order.amount,
-                currency: data.order.currency,
+                amount: data?.order.amount,
+                currency: data?.order.currency,
                 name: "CortexAI",
-                description: `${data.plan.name} Plan`,
-                order_id: data.order.id,
+                description: `${data?.plan.name} Plan`,
+                order_id: data?.order.id,
                 handler: async (response) => {
                     try {
-                        console.log("Razorpay Response:", response);
-
-                        // 3. Call verifyPayment API upon successful modal checkout
                         const verifyRes = await verifyPayment({
                             razorpay_order_id: response.razorpay_order_id,
                             razorpay_payment_id: response.razorpay_payment_id,
                             razorpay_signature: response.razorpay_signature,
                         });
 
-                        if (verifyRes) {
+                        if (verifyRes?.user) {
+                            dispatch(setUserData({
+                                ...userData,
+                                ...verifyRes.user,
+                                totalCredits: verifyRes.user.totalCredits ?? verifyRes.user.credits,
+                                credits: verifyRes.user.credits,
+                                plan: verifyRes.user.plan,
+                                planExpiresAt: verifyRes.user.planExpiresAt,
+                            }));
                             alert("🎉 Payment Verified Successfully!");
-                            window.location.reload(); // Reload to refresh user credits and plan state
                         }
                     } catch (verifyError) {
                         console.error("❌ Payment verification failed:", verifyError);
                         alert("Payment verification failed. Please contact support.");
                     }
                 },
-                theme: {
-                    color: "#2563EB",
-                }
+                theme: { color: "#2563EB" }
             };
 
-            // 4. Open Razorpay Checkout Modal
             const razorpay = new window.Razorpay(options);
             razorpay.open();
 
@@ -80,7 +86,6 @@ function BillingDrawer({ open, onClose }) {
             alert("Failed to initiate payment order.");
         }
     };
-
     return (
         <AnimatePresence>
             {open && (

@@ -21,5 +21,3 @@ class User(Document):
     class Settings:
         name = "users"
 
-# In Python, there is NO NEED to write "export default User". 
-# Any other file can now simply run: from models.user import User
