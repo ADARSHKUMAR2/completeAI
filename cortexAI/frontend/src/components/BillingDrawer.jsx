@@ -51,16 +51,16 @@ function BillingDrawer({ open, onClose }) {
                         console.log("Razorpay Response:", response);
 
                         // 3. Call verifyPayment API upon successful modal checkout
-                        // const verifyRes = await verifyPayment({
-                        //     razorpay_order_id: response.razorpay_order_id,
-                        //     razorpay_payment_id: response.razorpay_payment_id,
-                        //     razorpay_signature: response.razorpay_signature,
-                        // });
+                        const verifyRes = await verifyPayment({
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_signature: response.razorpay_signature,
+                        });
 
-                        // if (verifyRes) {
-                        //     alert("🎉 Payment Verified Successfully!");
-                        //     window.location.reload(); // Reload to refresh user credits and plan state
-                        // }
+                        if (verifyRes) {
+                            alert("🎉 Payment Verified Successfully!");
+                            window.location.reload(); // Reload to refresh user credits and plan state
+                        }
                     } catch (verifyError) {
                         console.error("❌ Payment verification failed:", verifyError);
                         alert("Payment verification failed. Please contact support.");
