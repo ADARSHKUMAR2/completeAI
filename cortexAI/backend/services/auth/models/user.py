@@ -10,6 +10,10 @@ class User(Document):
     name: Optional[str] = None
     email: Optional[str] = None
     avatar: Optional[str] = None
+    plan: str = "free"
+    credits: int = 100
+    total_credits: int = Field(default=100, alias="totalCredits")
+    plan_expires_at: Optional[datetime] = Field(default=None, alias="planExpiresAt")
     
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)

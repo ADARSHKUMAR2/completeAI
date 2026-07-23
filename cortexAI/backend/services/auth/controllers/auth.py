@@ -1,18 +1,23 @@
 import json
 import uuid
-from fastapi import APIRouter, HTTPException, Response, status, Cookie
+from fastapi import HTTPException, Response, status, Cookie
 from pydantic import BaseModel
 from firebase_admin import auth as firebase_auth
 from models.user import User
 from shared.redis.redis import redis_client
+from beanie import PydanticObjectId
+from datetime import datetime, timedelta
 
-router = APIRouter()
 
 # 1. Pydantic model representing your req.body validation schema
 class LoginRequest(BaseModel):
     token: str
 
-@router.post("/login")
+class UpdateUserPaymentSchema(BaseModel):
+    plan: str
+    credits: int
+    userId: str
+
 async def login(payload: LoginRequest, response: Response):
     try:
         # 2. Verify incoming frontend client ID token 
@@ -76,7 +81,6 @@ async def login(payload: LoginRequest, response: Response):
             detail=f"Login error: {str(error)}"
         )
     
-@router.post("/logout")
 async def logout(response: Response, session: str = Cookie(None)):
     try:
         # 1. Check if the session cookie even exists (Equivalent to: req.cookies?.session)
@@ -98,4 +102,66 @@ async def logout(response: Response, session: str = Cookie(None)):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
             detail=f"logout error {str(e)}"
+        )
+
+async def update_user_payment(body: UpdateUserPaymentSchema, session: str = Cookie(None)):
+    """
+    Updates the user's plan, adds credits, and sets plan expiration date (30 days from now).
+    and updates the active session data stored in Redis.
+    """
+    try:
+        # 1. Find user by ID (handles both MongoDB ObjectId and string IDs)
+        user = await User.get(PydanticObjectId(body.userId)) if PydanticObjectId.is_valid(body.userId) else await User.find_one(User.id == body.userId)
+
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+
+        # 2. Update plan and accumulate credits
+        user.plan = body.plan
+        user.credits += body.credits
+        user.total_credits += body.credits
+
+        # 3. Set plan expiration date (+30 days)
+        user.plan_expires_at = datetime.utcnow() + timedelta(days=30)
+
+        # 4. Save updated document
+        await user.save()
+
+        if session:
+            updated_session_data = {
+                "userId": str(user.id),
+                "name": user.name,
+                "email": user.email,
+                "avatar": user.avatar,
+                "plan": user.plan,
+                "credits": user.credits,
+                "totalCredits": user.total_credits,
+                "planExpiresAt": user.plan_expires_at.isoformat() if user.plan_expires_at else None
+            }
+
+            ttl_seconds = 7 * 24 * 60 * 60  # 7 days
+            await redis_client.set(
+                f"session-{session}",
+                json.dumps(updated_session_data),
+                ex=ttl_seconds
+            )
+
+        # 6. Return response matching JS { success: true } format
+        return {"success": True}
+
+        return {
+            "message": "User payment details updated successfully",
+            "user": user
+        }
+
+    except HTTPException:
+        raise
+    except Exception as error:
+        print(f"❌ Error updating user payment: {error}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"update user payment error {str(error)}"
         )
