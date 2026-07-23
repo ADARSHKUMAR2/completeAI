@@ -1,7 +1,9 @@
+# models/paymentModel.py
 from datetime import datetime
 from typing import Optional
 from enum import Enum
-from pydantic import BaseModel, Field
+from beanie import Document
+from pydantic import Field
 
 
 class PaymentStatus(str, Enum):
@@ -10,7 +12,7 @@ class PaymentStatus(str, Enum):
     FAILED = "failed"
 
 
-class PaymentSchema(BaseModel):
+class Payment(Document):
     user_id: str = Field(..., alias="userId")
     order_id: str = Field(..., alias="orderId")
     payment_id: Optional[str] = Field(None, alias="paymentId")
@@ -22,17 +24,8 @@ class PaymentSchema(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow, alias="createdAt")
     updated_at: datetime = Field(default_factory=datetime.utcnow, alias="updatedAt")
 
+    class Settings:
+        name = "payments"  # Collection name in MongoDB
+
     class Config:
         populate_by_name = True
-        json_schema_extra = {
-            "example": {
-                "userId": "user_123",
-                "orderId": "order_789",
-                "paymentId": "pay_456",
-                "amount": 499.00,
-                "currency": "INR",
-                "credits": 100,
-                "plan": "pro",
-                "status": "created"
-            }
-        }

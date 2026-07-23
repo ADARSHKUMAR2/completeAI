@@ -47,7 +47,11 @@ async def login(payload: LoginRequest, response: Response):
             "userId": str(user.id), # Assuming MongoDB ObjectId, cast to string
             "name": user.name,
             "email": user.email,
-            "avatar": user.avatar
+            "avatar": user.avatar,
+            "plan": user.plan,
+            "credits": user.credits,
+            "totalCredits": user.total_credits,
+            "planExpiresAt": user.plan_expires_at.isoformat() if user.plan_expires_at else None
         }
         
         # 3. Save to Redis with a 7-day expiration (Equivalent to: redis.set(..., "EX", ...))
