@@ -15,7 +15,6 @@ async def deduct_credits(user_id: str, agent: str) -> dict | None:
                 timeout=10.0,
             )
 
-            # Raise exception if request returned 4xx/5xx status
             response.raise_for_status()
 
             data = response.json()
