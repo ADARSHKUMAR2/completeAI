@@ -3,6 +3,7 @@ from config.llmModels import get_model
 from rich import print
 import json
 import time
+from utils.deductCredits import deduct_credits
 
 async def coding_node(state: AgentState) -> dict:
     """
@@ -104,6 +105,8 @@ User Request:
         clean_content = code_res.content.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
         data = json.loads(clean_content)
 
+        await deduct_credits(state.get("userId"), state.get("agent")) 
+
         return {
     "aiResponse": "Code Generated Successfully.",
     "artifacts": [
@@ -142,6 +145,8 @@ User Request:
 """
 
     res = await coding_llm.ainvoke(prompt)
+
+    await deduct_credits(state.get("userId"), state.get("agent"))
 
     return {
         "aiResponse": res.content.strip(),

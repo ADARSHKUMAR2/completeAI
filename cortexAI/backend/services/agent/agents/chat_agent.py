@@ -6,6 +6,7 @@ from pprint import pprint
 from rich import print
 import json
 from datetime import datetime
+from utils.deductCredits import deduct_credits
 
 async def chat_node(state: AgentState) -> dict:
     """
@@ -95,6 +96,8 @@ async def chat_node(state: AgentState) -> dict:
     try:
         # 4. Invoke the LangChain instance using the synchronous API supported by these models
         response = llm.invoke(messages)
+
+        await deduct_credits(state.get("userId"), "chat")
         
         # 5. Return the text update target back into your state schema
         return {"aiResponse": response.content}

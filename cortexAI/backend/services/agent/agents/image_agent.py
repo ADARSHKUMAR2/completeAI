@@ -6,6 +6,7 @@ from utils.upload_AWS import upload_to_s3
 from utils.getFrom_AWS import get_from_s3
 from graph.state import AgentState
 from rich import print
+from utils.deductCredits import deduct_credits
 
 async def image_node(state: AgentState) -> dict:
     """
@@ -43,6 +44,9 @@ User Request:
 
     # 3. Invoke LLM asynchronously
     res = await llm.ainvoke(prompt_text)
+
+    await deduct_credits(state.get("userId"), state.get("agent"))
+
     prompt = res.content.strip() if hasattr(res, "content") else str(res).strip()
 
     # 4. Construct Pollinations URL with URL-encoded prompt

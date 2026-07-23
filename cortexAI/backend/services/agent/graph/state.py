@@ -16,3 +16,4 @@ class AgentState(TypedDict):
     search_results: List[dict]
     images: List[str]
     artifacts: List[str]
+    userId: str

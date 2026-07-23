@@ -1,204 +1,209 @@
 import json
 import uuid
-from fastapi import HTTPException, Response, status, Cookie
-from pydantic import BaseModel
+from datetime import datetime, timedelta, timezone
+from typing import Optional, Tuple
+
+from beanie import PydanticObjectId
+from fastapi import Cookie, HTTPException, Response, status
 from firebase_admin import auth as firebase_auth
+from pydantic import BaseModel
+
 from models.user import User
 from shared.redis.redis import redis_client
-from beanie import PydanticObjectId
-from datetime import datetime, timedelta, timezone
-from typing import Optional
 
-# 1. Pydantic model representing your req.body validation schema
+# ------------------------------------------------------------------------------
+# Schemas & Constants
+# ------------------------------------------------------------------------------
+
 class LoginRequest(BaseModel):
     token: str
+
 
 class UpdateUserPaymentSchema(BaseModel):
     plan: str
     credits: int
     userId: str
 
+
+class DeductCreditsSchema(BaseModel):
+    userId: str
+    agent: str
+
+
+COST = {
+    "chat": 1,
+    "search": 5,
+    "coding": 10,
+    "pdf": 10,
+    "ppt": 10,
+    "image": 10,
+}
+
+TTL_SEVEN_DAYS = 7 * 24 * 60 * 60  # 604,800 seconds
+
+# ------------------------------------------------------------------------------
+# Helper Functions
+# ------------------------------------------------------------------------------
+
+async def _get_user_by_id(user_id: str) -> Optional[User]:
+    """Helper to fetch a user safely by ObjectId string or raw string ID."""
+    if PydanticObjectId.is_valid(user_id):
+        return await User.get(PydanticObjectId(user_id))
+    return await User.find_one(User.id == user_id)
+
+
+def _build_user_session_dict(user: User) -> dict:
+    """Standardizes user session data serialization for Redis & API payloads."""
+    plan_expires = getattr(user, "plan_expires_at", None)
+    return {
+        "userId": str(user.id),
+        "name": getattr(user, "name", "") or "",
+        "email": user.email,
+        "avatar": getattr(user, "avatar", None),
+        "plan": getattr(user, "plan", "free"),
+        "credits": getattr(user, "credits", 0),
+        "totalCredits": getattr(user, "total_credits", 100),
+        "planExpiresAt": plan_expires.isoformat() if plan_expires else None,
+    }
+
+
+async def _resolve_active_session_id(user_id_str: str) -> Optional[str]:
+    """Retrieves and parses the active session ID mapped to a user from Redis."""
+    raw_data = await redis_client.get(f"user-session-{user_id_str}")
+    if not raw_data:
+        return None
+
+    if isinstance(raw_data, bytes):
+        raw_data = raw_data.decode("utf-8")
+
+    try:
+        parsed = json.loads(raw_data)
+        if isinstance(parsed, dict):
+            return parsed.get("sessionId")
+        return str(parsed)
+    except Exception:
+        return str(raw_data)
+
+
+async def _update_redis_session(user: User) -> bool:
+    """Refreshes active Redis session cache for a user with updated model attributes."""
+    user_id_str = str(user.id)
+    session_id = await _resolve_active_session_id(user_id_str)
+
+    if session_id:
+        session_data = _build_user_session_dict(user)
+        await redis_client.set(
+            f"session-{session_id}",
+            json.dumps(session_data),
+            ex=TTL_SEVEN_DAYS
+        )
+        return True
+
+    print(f"⚠️ Warning: Could not resolve active session_id for user {user_id_str}")
+    return False
+
+# ------------------------------------------------------------------------------
+# Controllers
+# ------------------------------------------------------------------------------
+
 async def login(payload: LoginRequest, response: Response):
     try:
-        # 2. Verify incoming frontend client ID token 
+        # 1. Verify Firebase token
         decoded_token = firebase_auth.verify_id_token(payload.token)
         firebase_uid = decoded_token.get("uid")
         email = decoded_token.get("email")
         name = decoded_token.get("name", "")
 
-        # 3. Query the user via Beanie using the decoded UID (Lines 9-11 in JS)
+        # 2. Get or create user
         user = await User.find_one(User.firebase_uid == firebase_uid)
-        
         if not user:
-            user = User(
-                firebase_uid=firebase_uid,
-                email=email,
-                name=name
-                # Add any other initial registration fields your user model requires
-            )
+            user = User(firebase_uid=firebase_uid, email=email, name=name)
             await user.insert()
             print(f"🎉 Created a new user record for: {email}")
 
-        # 4. Generate a unique session ID (crypto.randomUUID() parallel)
+        # 3. Create unique session IDs
         session_id = str(uuid.uuid4())
         user_id_str = str(user.id)
-        ttl_seconds = 7 * 24 * 60 * 60 # 7 days * 24 hours * 60 minutes * 60 seconds = 604800 seconds
 
-        # Save User-to-Session mapping 
+        # 4. Write dual-mapping to Redis
+        user_session_payload = json.dumps({"sessionId": session_id})
+        session_data_payload = json.dumps(_build_user_session_dict(user))
+
         await redis_client.set(
             f"user-session-{user_id_str}",
-            json.dumps({"sessionId": session_id}),
-            ex=ttl_seconds
+            user_session_payload,
+            ex=TTL_SEVEN_DAYS
         )
-
-        # 2. Serialize user data to JSON format
-        user_session_data = {
-            "userId": str(user.id), # Assuming MongoDB ObjectId, cast to string
-            "name": user.name,
-            "email": user.email,
-            "avatar": user.avatar,
-            "plan": user.plan,
-            "credits": user.credits,
-            "totalCredits": user.total_credits,
-            "planExpiresAt": user.plan_expires_at.isoformat() if user.plan_expires_at else None
-        }
-        
-        
         await redis_client.set(
-            f"session-{session_id}", 
-            json.dumps(user_session_data), 
-            ex=ttl_seconds
+            f"session-{session_id}",
+            session_data_payload,
+            ex=TTL_SEVEN_DAYS
         )
 
-        # 5. Attach the HTTP-only cookie (res.cookie(...) parallel)
-        # Note: max_age in Python takes seconds (7 days = 7 * 24 * 60 * 60)
+        # 5. Set session cookie
         response.set_cookie(
             key="session",
             value=session_id,
             httponly=True,
-            secure=False,  # Set to True when running in production HTTPS environments
+            secure=False,  # Set to True in production HTTPS environments
             samesite="strict",
-            max_age=7 * 24 * 60 * 60
+            max_age=TTL_SEVEN_DAYS
         )
 
-        # 6. Return user payload. FastAPI sets the status to 200 OK by default
         return user
 
     except Exception as error:
-        # Matches your catch (error) block
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Login error: {str(error)}"
         )
-    
-async def logout(response: Response, session: str = Cookie(None)):
+
+
+async def logout(response: Response, session: Optional[str] = Cookie(None)):
     try:
-        # 1. Check if the session cookie even exists (Equivalent to: req.cookies?.session)
         if session:
-            # 2. Obliterate the key-value store entry inside Redis (Equivalent to: redis.del)
             await redis_client.delete(f"session-{session}")
-        
-        # 3. Tell the user's browser to destroy the tracking cookie (Equivalent to: res.clearCookie)
-        # Note: Pass the exact same path/domain configurations if custom parameters were used on login
+
         response.delete_cookie(
             key="session",
             httponly=True,
             samesite="strict"
         )
-        
         return {"message": "logout successfully"}
-        
+
     except Exception as e:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
-            detail=f"logout error {str(e)}"
-        )
-    
-async def update_user_payment(body: UpdateUserPaymentSchema, session: Optional[str] = Cookie(None)):
-    """
-    Updates the user's plan, adds credits, sets plan expiration date (+30 days),
-    and updates active session data in Redis.
-    """
-    try:
-        # 1. Find user by ID
-        user = (
-            await User.get(PydanticObjectId(body.userId))
-            if PydanticObjectId.is_valid(body.userId)
-            else await User.find_one(User.id == body.userId)
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"logout error: {str(e)}"
         )
 
+
+async def update_user_payment(body: UpdateUserPaymentSchema):
+    try:
+        user = await _get_user_by_id(body.userId)
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="User not found"
             )
 
-        # 2. Accumulate plan and credits
+        # Update attributes
+        now = datetime.now(timezone.utc)
         user.plan = body.plan
         user.credits = (user.credits or 0) + body.credits
         user.total_credits = (user.total_credits or 0) + body.credits
-        user.plan_expires_at = datetime.now(timezone.utc) + timedelta(days=30)
-        user.updated_at = datetime.now(timezone.utc)
+        user.plan_expires_at = now + timedelta(days=30)
+        user.updated_at = now
 
-        # 3. Save MongoDB Document
         await user.save()
 
-        # 4. Fetch User-to-Session mapping
-        user_id_str = str(user.id)
-        session_data_raw = await redis_client.get(f"user-session-{user_id_str}")
+        # Update Redis cache using helper
+        await _update_redis_session(user)
 
-        session_id = None
-        if session_data_raw:
-            try:
-                # Decode bytes to string if needed
-                if isinstance(session_data_raw, bytes):
-                    session_data_raw = session_data_raw.decode("utf-8")
-
-                session_info = json.loads(session_data_raw)
-                if isinstance(session_info, dict):
-                    session_id = session_info.get("sessionId")
-                else:
-                    session_id = str(session_info)
-            except Exception:
-                session_id = str(session_data_raw)
-
-        # 5. Overwrite Active Session Cache in Redis
-        if session_id:
-            updated_session_data = {
-                "userId": user_id_str,
-                "name": getattr(user, "name", ""),
-                "email": user.email,
-                "avatar": getattr(user, "avatar", None),
-                "plan": user.plan,
-                "credits": user.credits,
-                "totalCredits": user.total_credits,
-                "planExpiresAt": user.plan_expires_at.isoformat() if user.plan_expires_at else None
-            }
-
-            ttl_seconds = 7 * 24 * 60 * 60  # 7 days
-            await redis_client.set(
-                f"session-{session_id}",
-                json.dumps(updated_session_data),
-                ex=ttl_seconds
-            )
-            print(f"✅ Redis session-{session_id} updated successfully!")
-        else:
-            print(f"⚠️ Warning: Could not locate active session_id for user {user_id_str}")
-
-        # 6. Return payload
         return {
             "success": True,
             "message": "User payment details updated successfully",
-            "user": {
-                "userId": user_id_str,
-                "name": getattr(user, "name", ""),
-                "email": user.email,
-                "avatar": getattr(user, "avatar", None),
-                "plan": user.plan,
-                "credits": user.credits,
-                "totalCredits": user.total_credits,
-                "planExpiresAt": user.plan_expires_at.isoformat() if user.plan_expires_at else None
-            }
+            "user": _build_user_session_dict(user)
         }
 
     except HTTPException:
@@ -207,5 +212,47 @@ async def update_user_payment(body: UpdateUserPaymentSchema, session: Optional[s
         print(f"❌ Error updating user payment: {error}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"update user payment error {str(error)}"
+            detail=f"update user payment error: {str(error)}"
+        )
+
+
+async def deduct_credits(body: DeductCreditsSchema):
+    try:
+        user = await _get_user_by_id(body.userId)
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="user not found"
+            )
+
+        agent = body.agent.lower()
+        required_credits = COST.get(agent, 1)
+
+        if (user.credits or 0) < required_credits:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Not enough credits."
+            )
+
+        # Deduct credits & save
+        user.credits -= required_credits
+        user.updated_at = datetime.now(timezone.utc)
+        await user.save()
+
+        # Sync updated credits to Redis session
+        await _update_redis_session(user)
+
+        return {
+            "success": True,
+            "credits": user.credits,
+            "requiredCredits": required_credits
+        }
+
+    except HTTPException:
+        raise
+    except Exception as error:
+        print(f"❌ Error deducting credits: {error}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"deduct credits error: {str(error)}"
         )

@@ -6,6 +6,7 @@ from utils.getFrom_AWS import get_from_s3
 from utils.generatePpt import generate_ppt
 from graph.state import AgentState
 from rich import print
+from utils.deductCredits import deduct_credits
 
 async def ppt_node(state: AgentState) -> dict:
     """
@@ -55,6 +56,9 @@ Topic:
 
         # 3. Invoke LLM asynchronously
         res = await llm.ainvoke(prompt)
+
+        await deduct_credits(state.get("userId"), state.get("agent"))
+        
         raw_content = res.content.strip() if hasattr(res, "content") else str(res).strip()
 
         # Clean potential markdown backticks (```json ... ```)

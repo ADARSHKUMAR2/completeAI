@@ -13,9 +13,10 @@ class AgentRequestPayload(BaseModel):
     conversationId: str 
     agent: Optional[str] = "auto"
     artifacts: Optional[list] = []
+    userId: Optional[str] = None
 
 # 2. Main execution controller
-async def handle_agent_request(payload: AgentRequestPayload):
+async def handle_agent_request(payload: AgentRequestPayload, x_user_id: Optional[str] = None):
     # Extract structural URLs out of the service environment config
     chat_service_url = os.getenv("CHAT_SERVICE_URL", "http://127.0.0.1:8002")
     
@@ -44,6 +45,7 @@ async def handle_agent_request(payload: AgentRequestPayload):
         "prompt": payload.prompt,
         "conversationId": payload.conversationId,
         "agent": payload.agent,
+        "userId": x_user_id,
         "messages": [] # LangGraph message array initialization placeholder
     }
 

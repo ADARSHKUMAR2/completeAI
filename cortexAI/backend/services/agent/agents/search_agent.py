@@ -1,5 +1,6 @@
 from graph.state import AgentState
 from config.tavily import search_tool
+from utils.deductCredits import deduct_credits
 
 async def search_node(state: AgentState) -> dict:
     """
@@ -9,6 +10,8 @@ async def search_node(state: AgentState) -> dict:
     try:
         prompt = state.get("prompt", "")
         results = await search_tool.ainvoke({"query": prompt})
+
+        await deduct_credits(state.get("userId"), state.get("agent"))
         
         # Safely extract image URLs and raw text snippets
         extracted_images = []
