@@ -36,6 +36,7 @@ dependencies = [
     "langchain-qdrant>=1.1.0",
     "pypdf>=6.14.2",
     "langchain-community>=0.4.2",
+    "qdrant-client>=1.18.0",
 ]
 
 # This lets uv know it should treat the whole backend folder as the single search path

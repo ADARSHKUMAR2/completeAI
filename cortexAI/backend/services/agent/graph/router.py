@@ -30,7 +30,7 @@ async def router_node(state: AgentState) -> dict:
         if mimetype == "application/pdf":
             return {
                 **state,
-                "agent": "pdfRAG"
+                "agent": "pdfRag"
             }
             
         # Check for Image (replaces mimetype.startsWith("image/"))
