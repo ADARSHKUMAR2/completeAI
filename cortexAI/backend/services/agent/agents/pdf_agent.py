@@ -7,6 +7,7 @@ from utils.generatePdf import generate_pdf
 from rich import print
 import time
 from utils.deductCredits import deduct_credits
+from config.agentLimit import check_agent_limit
 
 async def pdf_node(state: AgentState) -> dict:
     """
@@ -17,6 +18,8 @@ async def pdf_node(state: AgentState) -> dict:
     try:
         # 1. Fetch LLM instance
         llm = get_model("pdf")
+
+        await check_agent_limit(state.get("userId"), state.get("agent"))
 
         # 2. Format system prompt
         prompt = f"""You are an expert document writer.

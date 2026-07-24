@@ -4,6 +4,7 @@ from rich import print
 import json
 import time
 from utils.deductCredits import deduct_credits
+from config.agentLimit import check_agent_limit
 
 async def coding_node(state: AgentState) -> dict:
     """
@@ -12,6 +13,8 @@ async def coding_node(state: AgentState) -> dict:
     print("💻 Coding Agent placeholder triggered!")
     
     intent_llm = get_model("intent")
+
+    await check_agent_limit(state.get("userId"), state.get("agent"))
     
     prompt_text = f"""You are an intent classifier.
 

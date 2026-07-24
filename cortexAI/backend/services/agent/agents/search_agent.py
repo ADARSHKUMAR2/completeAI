@@ -1,6 +1,7 @@
 from graph.state import AgentState
 from config.tavily import search_tool
 from utils.deductCredits import deduct_credits
+from config.agentLimit import check_agent_limit
 
 async def search_node(state: AgentState) -> dict:
     """
@@ -10,6 +11,8 @@ async def search_node(state: AgentState) -> dict:
     try:
         prompt = state.get("prompt", "")
         results = await search_tool.ainvoke({"query": prompt})
+
+        await check_agent_limit(state.get("userId"), state.get("agent"))
 
         await deduct_credits(state.get("userId"), state.get("agent"))
         

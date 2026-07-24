@@ -9,12 +9,15 @@ from config.vectorDb import get_vector_store
 from utils.deductCredits import deduct_credits
 from langchain_qdrant import QdrantVectorStore
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from config.agentLimit import check_agent_limit
 
 async def pdfRag_node(state: AgentState) -> dict:
     """
     Executes standard conversational queries using the designated 
     chat model engine and updates the graph's AI response state.
     """
+
+    await check_agent_limit(state.get("userId"), state.get("agent"))
 
     file_info = state.get("file")
     

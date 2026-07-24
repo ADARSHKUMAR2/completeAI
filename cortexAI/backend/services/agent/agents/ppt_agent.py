@@ -7,6 +7,7 @@ from utils.generatePpt import generate_ppt
 from graph.state import AgentState
 from rich import print
 from utils.deductCredits import deduct_credits
+from config.agentLimit import check_agent_limit
 
 async def ppt_node(state: AgentState) -> dict:
     """
@@ -18,6 +19,7 @@ async def ppt_node(state: AgentState) -> dict:
         # 1. Fetch LLM instance
         llm = get_model("ppt")
 
+        await check_agent_limit(state.get("userId"), state.get("agent"))
         # 2. Format System Prompt
         prompt = f"""You are a professional presentation designer.
 

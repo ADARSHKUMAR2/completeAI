@@ -15,6 +15,8 @@ class AgentType(StrEnum):
     IMAGE_ANALYSER = "imageAnalyser"
     IMAGE_ANALYSIS = "imageAnalyser"
     PDF_RAG= "pdfRag"
+    IMAGE = "image_gen"
+    PPT = "ppt"
 
 # 1. Initialize the LLM client instances
 # (Note: Standard Groq models include llama3-8b-8192, llama-3.1-70b-versatile, etc.)

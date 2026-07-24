@@ -85,12 +85,10 @@ def route_decision(state: AgentState) -> str:
     Pipes the flow configuration map out of the router step.
     """
     # Temporary fallback so it defaults to a regular chat node for safety
-    # selected_agent = state.get("agent", "chat")
+    selected_agent = state.get("agent", "chat")
     
-    # # Standardize the mapping keys to match our graph layout node registrations
-    # if selected_agent == "imageGen":
-    #     return "image_gen"
+    # Standardize the mapping keys to match our graph layout node registrations
+    if selected_agent == "imageGen":
+        return "image_gen"
         
-    # return selected_agent
-
-    return state.get("agent", "chat")
+    return selected_agent

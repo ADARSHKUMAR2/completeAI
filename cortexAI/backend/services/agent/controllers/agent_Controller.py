@@ -8,6 +8,7 @@ import redis.asyncio as redis
 from typing import Optional
 from fastapi import UploadFile
 from config.file_upload import save_uploaded_file
+from config.agentLimit import check_agent_limit, RateLimitException
 
 # 1. Define the incoming request schema validation payload
 class AgentRequestPayload(BaseModel):
@@ -23,6 +24,22 @@ async def handle_agent_request(
         x_user_id: Optional[str] = None,
         file: Optional[UploadFile] = None):
     
+    effective_user_id = x_user_id or payload.userId or "anonymous"
+    agent_type = payload.agent or "auto"
+    
+    try:
+        await check_agent_limit(user_id=effective_user_id, agent=agent_type)
+    except RateLimitException as limit_err:
+        # Extract friendly message from error data
+        limit_msg = limit_err.data.get("message") if hasattr(limit_err, "data") else str(limit_err)
+        
+        # Return cleanly as a standard response so UI renders it directly in the chat bubble!
+        return {
+            "answer": f"⚠️ **Rate Limit Exceeded**\n\n{limit_msg}",
+            "images": [],
+            "artifacts": []
+        }
+
     # Extract structural URLs out of the service environment config
     chat_service_url = os.getenv("CHAT_SERVICE_URL", "http://127.0.0.1:8002")
 
@@ -57,8 +74,8 @@ async def handle_agent_request(
     initial_state = {
         "prompt": payload.prompt,
         "conversationId": payload.conversationId,
-        "agent": payload.agent,
-        "userId": x_user_id,
+        "agent": agent_type,
+        "userId": effective_user_id,
         "file": saved_file_info,
         "messages": [] # LangGraph message array initialization placeholder
     }
@@ -120,10 +137,7 @@ async def handle_agent_request(
 
     except Exception as error:
         print(f"❌ LangGraph Runtime Exception: {error}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"agent error: {str(error)}"
-        )
+        raise error
     
 
 async def clear_redis_memory():

@@ -7,6 +7,7 @@ from utils.getFrom_AWS import get_from_s3
 from graph.state import AgentState
 from rich import print
 from utils.deductCredits import deduct_credits
+from config.agentLimit import check_agent_limit
 
 async def image_node(state: AgentState) -> dict:
     """
@@ -16,6 +17,8 @@ async def image_node(state: AgentState) -> dict:
     
     # 1. Get model instance
     llm = get_model("image")
+    
+    await check_agent_limit(state.get("userId"), state.get("agent"))
     
     # 2. Format system prompt with incoming user prompt
     prompt_text = f"""You are an elite AI image prompt engineer.

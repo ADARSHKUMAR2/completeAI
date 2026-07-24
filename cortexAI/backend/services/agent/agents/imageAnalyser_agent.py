@@ -5,6 +5,7 @@ import aiofiles
 from langchain_core.messages import SystemMessage, HumanMessage
 from config.llmModels import get_model  # Your LLM loader module
 from utils.deductCredits import deduct_credits
+from config.agentLimit import check_agent_limit
 
 async def imageAnalyser_node(state: AgentState) -> dict:
     """
@@ -12,6 +13,7 @@ async def imageAnalyser_node(state: AgentState) -> dict:
     chat model engine and updates the graph's AI response state.
     """
 
+    await check_agent_limit(state.get("userId"), state.get("agent"))
     file_info = state.get("file")
     
     if not file_info or not file_info.get("path"):
