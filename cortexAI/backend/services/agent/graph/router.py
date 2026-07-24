@@ -20,6 +20,25 @@ async def router_node(state: AgentState) -> dict:
             **state,
             "agent": agent
         }
+    
+    file_info = state.get("file")
+    # 1. File-based conditional routing overrides
+    if file_info and isinstance(file_info, dict):
+        mimetype = file_info.get("mimetype", "")
+        
+        # Check for PDF
+        if mimetype == "application/pdf":
+            return {
+                **state,
+                "agent": "pdfRAG"
+            }
+            
+        # Check for Image (replaces mimetype.startsWith("image/"))
+        if mimetype.startswith("image/"):
+            return {
+                **state,
+                "agent": "imageAnalyser"
+            }
 
     # Fetch the model mapped specifically for the supervisor gateway
     base_llm = get_model("chat")

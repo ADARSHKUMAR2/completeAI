@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 from config.db import connect_db  # We will update/create this next
 from routes.agent_Route import agent_router
 from shared.redis.redis import init_redis
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 
 # 1. Load environment variables
 load_dotenv()
@@ -23,6 +25,11 @@ async def lifespan(app: FastAPI):
 
 # 3. Instantiate the FastAPI app
 app = FastAPI(lifespan=lifespan)
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    print("❌ 422 Validation Error Details:", exc.errors())
+    return JSONResponse(status_code=422, content={"detail": exc.errors()})
 
 app.include_router(agent_router,prefix="/agent", tags=["agent"])
 

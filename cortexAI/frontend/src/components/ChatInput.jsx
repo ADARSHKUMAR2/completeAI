@@ -8,12 +8,15 @@ import { setSelectedConversation, addConversation } from '../redux/conversationS
 import { createConversation } from '../features/createConversation'
 import { setConvTitle } from '../redux/conversationSlice'
 import { updateConversation } from '../features/updateConversation'
+import { useRef } from 'react'
 
 function ChatInput() {
     const [value, setValue] = useState("")
     const [selectedAgent, setSelectedAgent] = useState("Auto")
     const { selectedConversation } = useSelector(state => state.conversation)
     const { messages } = useSelector(state => state.message)
+    const [selectedFile, setSelectedFile] = useState(null)
+    const fileRef = useRef(null)
     const dispatch = useDispatch()
 
     const handleSendMessage = async () => {
@@ -47,10 +50,15 @@ function ChatInput() {
         }
 
         // 2. Prepare payload targeting the resolved conversation ID
-        const payload = {
-            prompt: textPayload,
-            conversationId: conversation?._id || "",
-            agent: selectedAgent.toLowerCase()
+        const formData = new FormData();
+        formData.append("prompt", value.trim());
+        formData.append("conversationId", conversation?._id || "");
+        formData.append("agent", selectedAgent.toLowerCase());
+
+        console.log("FormData Contents:", Object.fromEntries(formData.entries()));
+
+        if (selectedFile) {
+            formData.append("file", selectedFile);
         }
 
         // 3. Dispatch user message to UI immediately & clear input
@@ -62,7 +70,7 @@ function ChatInput() {
 
         // 4. Send request to Agent and update UI on response
         try {
-            const data = await sendMessage(payload)
+            const data = await sendMessage(formData)
             console.log(data)
 
             const assistantContent = data?.answer || data?.aiResponse || ""
@@ -178,7 +186,17 @@ function ChatInput() {
 
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-1'>
-                        <button className='flex items-center justify-center w-8 h-8 rounded-lg text-slate-600 hover:text-slate-400 hover:bg-white/[0.05] border border-transparent hover:border-white/[0.06] transition-all duration-150 bg-transparent cursor-pointer'>
+
+                        <input type="file" accept='.pdf,image/*' hidden ref={fileRef} onChange={(e) => {
+                            const file = e.target.files[0]
+                            if (file) {
+                                setSelectedFile(file)
+                            }
+                        }} />
+
+                        <button className='flex items-center justify-center w-8 h-8 rounded-lg text-slate-600 hover:text-slate-400 hover:bg-white/[0.05] border border-transparent hover:border-white/[0.06] transition-all duration-150 bg-transparent cursor-pointer'
+                            onClick={() => fileRef.current.click()}
+                        >
                             <Paperclip size={16} />
                         </button>
 

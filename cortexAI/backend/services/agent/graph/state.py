@@ -17,3 +17,4 @@ class AgentState(TypedDict):
     images: List[str]
     artifacts: List[str]
     userId: str
+    file: str

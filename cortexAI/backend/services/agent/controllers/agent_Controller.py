@@ -6,6 +6,8 @@ from graph.graph import agent_app
 from config.memory import add_message, get_memory
 import redis.asyncio as redis
 from typing import Optional
+from fastapi import UploadFile
+from config.file_upload import save_uploaded_file
 
 # 1. Define the incoming request schema validation payload
 class AgentRequestPayload(BaseModel):
@@ -16,9 +18,20 @@ class AgentRequestPayload(BaseModel):
     userId: Optional[str] = None
 
 # 2. Main execution controller
-async def handle_agent_request(payload: AgentRequestPayload, x_user_id: Optional[str] = None):
+async def handle_agent_request(
+        payload: AgentRequestPayload, 
+        x_user_id: Optional[str] = None,
+        file: Optional[UploadFile] = None):
+    
     # Extract structural URLs out of the service environment config
     chat_service_url = os.getenv("CHAT_SERVICE_URL", "http://127.0.0.1:8002")
+
+    saved_file_info = None
+
+    # Handle file processing if a file was attached in the request
+    if file:
+        saved_file_info = await save_uploaded_file(file)
+        print(f"📁 Processed upload: {saved_file_info['filename']}")
     
     # B. Save to MongoDB (via Chat Microservice)
     # Step A: Save user query thread state via internal microservice call (Axios equivalent)
@@ -46,6 +59,7 @@ async def handle_agent_request(payload: AgentRequestPayload, x_user_id: Optional
         "conversationId": payload.conversationId,
         "agent": payload.agent,
         "userId": x_user_id,
+        "file": saved_file_info,
         "messages": [] # LangGraph message array initialization placeholder
     }
 

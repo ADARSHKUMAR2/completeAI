@@ -1,0 +1,7 @@
+2026/07/24-10:42:00.592 3ae07a Reusing MANIFEST /Users/adarsh/completeAI/.vscode/vscode-chrome-profile/Default/IndexedDB/http_localhost_5173.indexeddb.leveldb/MANIFEST-000001
+2026/07/24-10:42:00.592 3ae07a Recovering log #4
+2026/07/24-10:42:00.593 3ae07a Reusing old log /Users/adarsh/completeAI/.vscode/vscode-chrome-profile/Default/IndexedDB/http_localhost_5173.indexeddb.leveldb/000004.log 
+2026/07/24-10:42:02.980 3ae08a Level-0 table #8: started
+2026/07/24-10:42:02.982 3ae08a Level-0 table #8: 3637 bytes OK
+2026/07/24-10:42:02.989 3ae08a Delete type=0 #4
+2026/07/24-10:42:02.989 3ae07a Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)

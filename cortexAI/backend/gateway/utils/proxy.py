@@ -60,20 +60,26 @@ def register_proxy_with_header(app: FastAPI, path_prefix: str, target_url: str):
     async def proxy_with_header_handler(request: Request, path: str, user_data: dict = Depends(protect)):
         target_path = f"{path_prefix.rstrip('/')}/{path}"
         
-        # 1. Convert headers to a standard mutable dictionary
-        headers = dict(request.headers)
+        #  1. Read raw byte stream
+        body_bytes = await request.body()
         
-        # 2. Inject the authenticated user ID (equivalent to srcReq.user.userId)
+        #  2. Filter out host & content-length so httpx recalculates boundaries properly
+        headers = {
+            k: v for k, v in request.headers.items() 
+            if k.lower() not in ("host", "content-length")
+        }
+        
+        #  3. Inject user ID header
         if user_data and "userId" in user_data:
             headers["x-user-id"] = str(user_data["userId"])
         
-        # 3. Build and forward the request
+        #  4. Forward request
         req = async_client.build_request(
             method=request.method,
             url=target_path,
             headers=headers,
             params=request.query_params,
-            content=await request.body()
+            content=body_bytes
         )
         
         response = await async_client.send(req, stream=True)

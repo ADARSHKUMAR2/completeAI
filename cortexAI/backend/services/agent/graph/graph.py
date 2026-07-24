@@ -13,6 +13,8 @@ from agents.image_agent import image_node
 from agents.pdf_agent import pdf_node
 from agents.ppt_agent import ppt_node
 from agents.search_agent import search_node
+from agents.imageAnalyser_agent import imageAnalyser_node
+from agents.pdfRag_agent import pdfRag_node
 
 # Initialize workflow bound to your two-key prompt/aiResponse schema
 workflow = StateGraph(AgentState)
@@ -30,6 +32,8 @@ workflow.add_node("image_gen", image_node)
 workflow.add_node("pdf", pdf_node)
 workflow.add_node("ppt", ppt_node)
 workflow.add_node("search", search_node)
+workflow.add_node("imageAnalyser", imageAnalyser_node)
+workflow.add_node("pdfRag", pdfRag_node)
 
 # Step B: Establish static sequence pipelines (Standard Edges)
 workflow.add_edge(START, "router")
@@ -43,6 +47,8 @@ workflow.add_edge("coding", END)
 workflow.add_edge("image_gen", END)
 workflow.add_edge("pdf", END)
 workflow.add_edge("ppt", END)
+workflow.add_edge("imageAnalyser", END)
+workflow.add_edge("pdfRag", END)
 
 # Step C: Register the Dynamic Supervisor Matrix (Conditional Edges)
 workflow.add_conditional_edges(
@@ -54,7 +60,9 @@ workflow.add_conditional_edges(
         "image_gen": "image_gen",
         "pdf": "pdf",
         "ppt": "ppt",
-        "search": "search"
+        "search": "search",
+        "imageAnalyser": "imageAnalyser",
+        "pdfRag": "pdfRag"
     }
 )
 

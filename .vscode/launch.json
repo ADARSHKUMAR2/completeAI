@@ -52,6 +52,14 @@
                 "PYTHONPATH": "${workspaceFolder}/cortexAI/backend"
             },
             "python": "${workspaceFolder}/cortexAI/backend/.venv/bin/python"
-        }
+        },
+        {
+            "name": "Attach: Frontend React/Vite (:5173)",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9222,
+            "url": "http://localhost:5173*",
+            "webRoot": "${workspaceFolder}/cortexAI/frontend"
+        },
     ]
 }

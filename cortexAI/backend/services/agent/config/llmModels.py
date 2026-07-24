@@ -16,7 +16,8 @@ groq_llm = ChatGroq(
 
 gemini_llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
-    temperature=0
+    temperature=0,
+    convert_system_message_to_human=True
 )
 
 openrouter_llm = ChatOpenRouter(
@@ -40,6 +41,7 @@ def get_model(agent_type: str):
             return groq_llm
         case "coding":
             return gemini_llm
+        case "imageAnalyser":
+            return gemini_llm
         case _:
-            # Default fallback matching the JS switch block
             return groq_llm
