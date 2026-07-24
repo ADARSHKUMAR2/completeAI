@@ -65,7 +65,7 @@ function SideBar() {
 
         <span className='text-[10px] font-medium text-indigo-400 bg-indigo-500/10 border 
         border-indigo-500/20 px-2 py-0.5 rounded-full tracking-wide'>
-          free
+          {userData?.plan || 'Free'}
         </span>
 
         <button
@@ -166,7 +166,7 @@ function SideBar() {
 
             <div className='flex-1 min-w-0'>
               <p className='text-[13.5px] font-semibold text-slate-100 truncate'>{userData?.name || "User"}</p>
-              <p className='text-[11px] text-slate-600 mt-px'>Free Tier</p>
+              <p className='text-[11px] text-slate-600 mt-px'> {userData.plan} Tier</p>
             </div>
 
             <div className='flex gap-1'>
