@@ -9,6 +9,7 @@ import { createConversation } from '../features/createConversation'
 import { setConvTitle } from '../redux/conversationSlice'
 import { updateConversation } from '../features/updateConversation'
 import { useRef } from 'react'
+import { X } from 'lucide-react'
 
 function ChatInput() {
     const [value, setValue] = useState("")
@@ -72,6 +73,8 @@ function ChatInput() {
         try {
             const data = await sendMessage(formData)
             console.log(data)
+
+            setSelectedFile(null)
 
             const assistantContent = data?.answer || data?.aiResponse || ""
             const artifacts = data?.artifacts || []
@@ -173,6 +176,48 @@ function ChatInput() {
                         )
                     })}
                 </div>
+
+                {selectedFile && (
+                    <div className="my-3">
+                        <div className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2">
+                            {selectedFile.type === "application/pdf" ? (
+                                <FileText size={16} className="text-red-400" />
+                            ) : selectedFile.type?.startsWith("image/") ? (
+                                <img
+                                    src={URL.createObjectURL(selectedFile)}
+                                    alt="Preview"
+                                    className="h-10 w-10 rounded-xl object-cover"
+                                />
+                            ) : null}
+
+                            {/* File name display optional */}
+                            <span className="text-xs text-white/70 truncate max-w-[150px]">
+                                {selectedFile?.name}
+                            </span>
+
+                            {/* File size display optional */}
+                            <span className="text-xs text-white/50">
+                                {selectedFile?.size > 1024 * 1024
+                                    ? `${(selectedFile.size / (1024 * 1024)).toFixed(1)} MB`
+                                    : `${Math.ceil((selectedFile?.size || 0) / 1024)} KB`}
+                            </span>
+
+                            {/* 3. Close Button */}
+                            <button
+                                type="button"
+                                className="ml-2 transition-colors cursor-pointer"
+                                onClick={() => {
+                                    setSelectedFile(null);
+                                    if (fileRef.current) {
+                                        fileRef.current.value = "";
+                                    }
+                                }}
+                            >
+                                <X size={14} className="text-slate-500 hover:text-white" />
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 <textarea
                     placeholder='Ask Anything...'
