@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Paperclip, Mic, Send, Code2, Globe, Zap, MessageSquare, FileText, Presentation, ImageIcon } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import sendMessage from '../features/sendMessage'
-import { addMessage, setArtifacts, setMessages } from '../redux/messageSlice'
+import { addMessage, setArtifacts, setMessages, setIsLoading } from '../redux/messageSlice'
 import { useDispatch } from 'react-redux'
 import { setSelectedConversation, addConversation } from '../redux/conversationSlice'
 import { createConversation } from '../features/createConversation'
@@ -21,6 +21,7 @@ function ChatInput() {
     const dispatch = useDispatch()
 
     const handleSendMessage = async () => {
+        dispatch(setIsLoading(true))
         const textPayload = value.trim()
         if (!textPayload)
             return
@@ -75,6 +76,7 @@ function ChatInput() {
             console.log(data)
 
             setSelectedFile(null)
+            dispatch(setIsLoading(false))
 
             const assistantContent = data?.answer || data?.aiResponse || ""
             const artifacts = data?.artifacts || []
