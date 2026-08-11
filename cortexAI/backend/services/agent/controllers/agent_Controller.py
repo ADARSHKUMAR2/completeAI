@@ -41,7 +41,7 @@ async def handle_agent_request(
         }
 
     # Extract structural URLs out of the service environment config
-    chat_service_url = os.getenv("CHAT_SERVICE_URL", "http://127.0.0.1:8002")
+    chat_service_url = os.getenv("CHAT_SERVICE_URL", "http://0.0.0.0:8002")
 
     saved_file_info = None
 

@@ -40,7 +40,7 @@ async def root():
     return {"message": "hello from chat"}
 
 def main():
-    uvicorn.run("main:app", host="127.0.0.1", port=PORT, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=PORT, reload=True)
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request, exc):

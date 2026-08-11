@@ -43,4 +43,5 @@ dependencies = [
 [tool.uv]
 dev-dependencies = [
     "debugpy>=1.8.21",
+    "honcho>=2.0.0",
 ]

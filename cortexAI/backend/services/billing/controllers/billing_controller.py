@@ -21,7 +21,7 @@ class VerifyPaymentSchema(BaseModel):
     razorpay_signature: str
 
 
-AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "http://127.0.0.1:8001")
+AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "http://0.0.0.0:8001")
 
 
 async def create_order(body: CreateOrderSchema, user_id: str):

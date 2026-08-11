@@ -6,7 +6,7 @@ async def deduct_credits(user_id: str, agent: str) -> dict | None:
     Calls the API Gateway to deduct user credits.
     """
 
-    auth_service_url = os.getenv("AUTH_SERVICE_URL", "http://127.0.0.1:8001")
+    auth_service_url = os.getenv("AUTH_SERVICE_URL", "http://0.0.0.0:8001")
     try:
         async with httpx.AsyncClient() as client:
             response = await client.post(

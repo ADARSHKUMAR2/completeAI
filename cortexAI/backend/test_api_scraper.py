@@ -2,7 +2,7 @@ import httpx
 import json
 
 # Set the Gateway URL (The public entrance to your microservices)
-GATEWAY_URL = "http://127.0.0.1:8000"
+GATEWAY_URL = "http://0.0.0.0:8000"
 
 def scrape_and_verify():
     # 1. Establish a persistent client session (automatically handles cookies)

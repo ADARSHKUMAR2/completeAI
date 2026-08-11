@@ -3,7 +3,7 @@ import httpx
 
 async def get_messages(conversation_id: str):
     # Extract the chat service URL from environment variables (with fallback)
-    chat_service = os.getenv("CHAT_SERVICE", "http://127.0.0.1:8002")
+    chat_service = os.getenv("CHAT_SERVICE", "http://0.0.0.0:8002")
     
     try:
         async with httpx.AsyncClient() as client:
