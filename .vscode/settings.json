@@ -1,3 +1,20 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:system"
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python.defaultInterpreterPath": "${workspaceFolder}/cortexAI/backend/.venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/cortexAI/backend",
+        "${workspaceFolder}/cortexAI/backend/gateway",
+        "${workspaceFolder}/cortexAI/backend/services/agent",
+        "${workspaceFolder}/cortexAI/backend/services/auth",
+        "${workspaceFolder}/cortexAI/backend/services/billing",
+        "${workspaceFolder}/cortexAI/backend/services/chat"
+    ],
+    "python-envs.pythonProjects": [
+        {
+            "path": ".",
+            "envManager": "ms-python.python:system",
+            "packageManager": "ms-python.python:pip"
+        }
+    ]
 }

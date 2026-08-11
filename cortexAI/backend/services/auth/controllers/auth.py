@@ -109,6 +109,7 @@ async def _update_redis_session(user: User) -> bool:
 async def login(payload: LoginRequest, response: Response):
     try:
         # 1. Verify Firebase token
+        print(f"\n--- FIREBASE TOKEN ---\n{payload.token}\n----------------------\n")
         decoded_token = firebase_auth.verify_id_token(payload.token)
         firebase_uid = decoded_token.get("uid")
         email = decoded_token.get("email")
