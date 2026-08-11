@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2026-08-11T15:15:15.848Z] INFO  [PrepareMsgHook] === Prepare-commit-msg hook started (source: message) ===
 [2026-08-11T15:15:16.017Z] INFO  [PrepareMsgHook] === Prepare-commit-msg hook finished ===
 [2026-08-11T15:15:16.328Z] INFO  [PostCommitHook] [trace=c6e75197a84a6731cb2f2dd3048d3982] Detected operation: commit
@@ -50,3 +51,345 @@
 [2026-08-11T15:15:19.617Z] INFO  [PlanService] detectPlans found 0 plans (0 in registry)
 [2026-08-11T15:15:19.617Z] INFO  [SkillProjection] projectActiveSkills: 0 active (0 in registry)
 [2026-08-11T15:15:20.882Z] INFO  [PrePushHook] [trace=4f3bb70e74e73818a7186364e7735c84] pre-push hook: remote=origin budget=3000ms
+=======
+[2026-07-25T17:45:15.543Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-25T17:45:15.597Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-25T17:45:17.226Z] INFO  [bridge] Merged mode activated {"branch":"main","creationPoint":"b4f95d79","author":"Adarsh"}
+[2026-07-25T17:45:17.272Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-25T17:45:17.309Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-25T17:45:17.394Z] INFO  [SessionTracker] Config saved to /Users/adarsh/.jolli/jollimemory
+[2026-07-25T17:45:17.482Z] WARN  [ReadStorageResolver] createReadStorage: folder lacks index.json — falling back to orphan branch (migration incomplete, or folder wiped)
+[2026-07-25T17:45:17.510Z] INFO  [SchemaV5Migration] Storage backend not initialized yet — skipping schema v5 migration (no data to migrate)
+[2026-07-25T17:45:17.510Z] INFO  [activate] Schema v5 migration: alreadyDone=false fresh=true migrated=0 skipped=0
+[2026-07-25T17:45:17.551Z] INFO  [bridge] Own dist-paths/vscode missing, stale, or pointing elsewhere — re-enabling
+[2026-07-25T17:45:17.551Z] INFO  [bridge] enable() called
+[2026-07-25T17:45:17.574Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Qr (fresh repo or backend read failed)
+[2026-07-25T17:45:17.606Z] INFO  [Installer] Installing Jolli Memory hooks
+[2026-07-25T17:45:17.793Z] INFO  [DispatchScripts] Wrote resolve-dist-path, run-hook, and run-cli scripts to /Users/adarsh/.jolli/jollimemory
+[2026-07-25T17:45:17.802Z] INFO  [DistPathWriter] Wrote dist-paths/vscode (version=0.99.9, distDir=/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.9/dist)
+[2026-07-25T17:45:18.347Z] INFO  [SkillInstaller] Wrote SKILL.md (revision 1) to /Users/adarsh/completeAI/.agents/skills/jolli-recall/SKILL.md
+[2026-07-25T17:45:18.370Z] INFO  [SkillInstaller] Wrote SKILL.md (revision 1) to /Users/adarsh/completeAI/.agents/skills/jolli-search/SKILL.md
+[2026-07-25T17:45:18.378Z] INFO  [SkillInstaller] Wrote SKILL.md (revision 5) to /Users/adarsh/completeAI/.agents/skills/jolli-local-run/SKILL.md
+[2026-07-25T17:45:18.391Z] INFO  [SkillInstaller] Wrote SKILL.md (revision 4) to /Users/adarsh/completeAI/.agents/skills/jolli-remote-run/SKILL.md
+[2026-07-25T17:45:18.407Z] INFO  [SkillInstaller] Wrote SKILL.md (revision 5) to /Users/adarsh/completeAI/.agents/skills/jolli/SKILL.md
+[2026-07-25T17:45:18.447Z] INFO  [GitExclude] Updated /Users/adarsh/completeAI/.git/info/exclude with 8 Jolli skill exclude paths
+[2026-07-25T17:45:18.449Z] INFO  [McpRegistration] Registered MCP server in /Users/adarsh/completeAI/.mcp.json
+[2026-07-25T17:45:18.450Z] INFO  [JsonMcpWriter] Registered MCP server in /Users/adarsh/completeAI/.cursor/mcp.json
+[2026-07-25T17:45:18.460Z] INFO  [JsonMcpWriter] Registered MCP server in /Users/adarsh/.gemini/settings.json
+[2026-07-25T17:45:18.462Z] INFO  [JsonMcpWriter] Registered MCP server in /Users/adarsh/.copilot/mcp-config.json
+[2026-07-25T17:45:18.463Z] INFO  [JsonMcpWriter] Registered MCP server in /Users/adarsh/Library/Application Support/Code/User/mcp.json
+[2026-07-25T17:45:18.464Z] INFO  [GitHookInstaller] Git post-commit hook installed
+[2026-07-25T17:45:18.466Z] INFO  [GitHookInstaller] Git post-rewrite hook installed
+[2026-07-25T17:45:18.468Z] INFO  [GitHookInstaller] Git prepare-commit-msg hook installed
+[2026-07-25T17:45:18.469Z] INFO  [GitHookInstaller] Git post-merge hook installed
+[2026-07-25T17:45:18.473Z] INFO  [GitHookInstaller] Git pre-push hook installed
+[2026-07-25T17:45:18.475Z] INFO  [GeminiHookInstaller] Gemini AfterAgent hook installed
+[2026-07-25T17:45:18.478Z] INFO  [SessionTracker] Config saved to /Users/adarsh/.jolli/jollimemory
+[2026-07-25T17:45:18.478Z] INFO  [Installer] Gemini CLI detected — enabled Gemini session tracking
+[2026-07-25T17:45:18.480Z] INFO  [SessionTracker] Config saved to /Users/adarsh/.jolli/jollimemory
+[2026-07-25T17:45:18.480Z] INFO  [Installer] Cursor detected (IDE=true, CLI=false) — enabled session discovery
+[2026-07-25T17:45:18.481Z] INFO  [SessionTracker] Config saved to /Users/adarsh/.jolli/jollimemory
+[2026-07-25T17:45:18.481Z] INFO  [Installer] GitHub Copilot detected (CLI=true, Chat=true) — enabled session discovery
+[2026-07-25T17:45:18.482Z] INFO  [SessionTracker] Config saved to /Users/adarsh/.jolli/jollimemory
+[2026-07-25T17:45:18.482Z] INFO  [Installer] Cline detected — enabled Cline session discovery
+[2026-07-25T17:45:18.482Z] INFO  [Installer] Skipping v5 migration on vscode-extension source — Extension.ts owns it with UI
+[2026-07-25T17:45:18.482Z] INFO  [Installer] Installation complete
+[2026-07-25T17:45:18.483Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-25T17:45:18.573Z] INFO  [Installer] Status: enabled=false, claude=false, git=false, geminiHook=false, worktreeHooks=false, sessions=0, summaries=0, codex=false/undefined, gemini=true/undefined, enabledWorktrees=1, opencode=false/undefined, cursor=true/undefined, copilot=true/undefined, copilotChat=true, cline=true/undefined
+[2026-07-25T17:45:18.627Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-25T17:45:18.628Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-07-25T17:45:18.628Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-07-25T17:45:18.628Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-07-25T17:45:18.695Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-25T17:45:18.696Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-25T17:45:18.848Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-25T17:45:18.904Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-25T17:45:18.905Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-25T17:45:19.014Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-25T17:45:20.889Z] INFO  [initialLoad] All panels loaded — updating status bar
+[2026-07-25T17:45:20.889Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-25T17:45:20.903Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Qr (fresh repo or backend read failed)
+[2026-07-25T17:45:20.968Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-25T17:45:20.969Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-25T17:45:20.996Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-25T17:45:21.009Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Iw (fresh repo or backend read failed)
+[2026-07-25T17:46:12.596Z] INFO  [deactivate] Jolli Memory extension deactivating
+[2026-07-29T06:52:41.455Z] INFO  [activate] Activating JolliMemory extension {"workspaceRoot":"/Users/adarsh/completeAI","extensionPath":"/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.9"}
+[2026-07-29T06:52:41.583Z] INFO  [initialLoad] Loading all panels
+[2026-07-29T06:52:41.694Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-07-29T06:52:41.694Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-07-29T06:52:41.694Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-07-29T06:52:41.703Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-29T06:52:41.938Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-29T06:52:41.939Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-29T06:52:41.940Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-29T06:52:42.044Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Iw (fresh repo or backend read failed)
+[2026-07-29T06:52:42.184Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-29T06:52:42.238Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-29T06:52:46.093Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-29T06:52:46.215Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-29T06:52:46.263Z] INFO  [bridge] Merged mode activated {"branch":"main","creationPoint":"b4f95d79","author":"Adarsh"}
+[2026-07-29T06:52:46.516Z] WARN  [ReadStorageResolver] createReadStorage: folder lacks index.json — falling back to orphan branch (migration incomplete, or folder wiped)
+[2026-07-29T06:52:46.700Z] INFO  [SchemaV5Migration] Storage backend not initialized yet — skipping schema v5 migration (no data to migrate)
+[2026-07-29T06:52:46.700Z] INFO  [activate] Schema v5 migration: alreadyDone=false fresh=true migrated=0 skipped=0
+[2026-07-29T06:52:46.810Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Qr (fresh repo or backend read failed)
+[2026-07-29T06:52:48.021Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-29T06:52:48.021Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-29T06:52:48.022Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-29T06:52:48.301Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-29T06:52:48.303Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-29T06:52:48.509Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-29T06:52:50.009Z] INFO  [initialLoad] All panels loaded — updating status bar
+[2026-07-29T06:52:50.009Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-29T06:52:50.024Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Qr (fresh repo or backend read failed)
+[2026-07-29T06:52:50.091Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-29T06:52:50.092Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-29T06:52:50.121Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-29T06:52:50.143Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Iw (fresh repo or backend read failed)
+[2026-07-29T07:00:03.457Z] INFO  [deactivate] Jolli Memory extension deactivating
+[2026-07-30T08:57:27.194Z] INFO  [activate] Activating JolliMemory extension {"workspaceRoot":"/Users/adarsh/completeAI","extensionPath":"/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.9"}
+[2026-07-30T08:57:27.273Z] INFO  [initialLoad] Loading all panels
+[2026-07-30T08:57:27.386Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-07-30T08:57:27.386Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-07-30T08:57:27.386Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-07-30T08:57:27.492Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-30T08:57:27.533Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-30T08:57:27.535Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-30T08:57:27.561Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-30T08:57:27.594Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Iw (fresh repo or backend read failed)
+[2026-07-30T08:57:31.159Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-30T08:57:31.187Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-30T08:57:32.114Z] INFO  [bridge] Merged mode activated {"branch":"main","creationPoint":"b4f95d79","author":"Adarsh"}
+[2026-07-30T08:57:32.168Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-30T08:57:32.237Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-30T08:57:32.462Z] WARN  [ReadStorageResolver] createReadStorage: folder lacks index.json — falling back to orphan branch (migration incomplete, or folder wiped)
+[2026-07-30T08:57:32.475Z] INFO  [SchemaV5Migration] Storage backend not initialized yet — skipping schema v5 migration (no data to migrate)
+[2026-07-30T08:57:32.475Z] INFO  [activate] Schema v5 migration: alreadyDone=false fresh=true migrated=0 skipped=0
+[2026-07-30T08:57:32.532Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Qr (fresh repo or backend read failed)
+[2026-07-30T08:57:34.119Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-30T08:57:34.120Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-30T08:57:34.120Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-30T08:57:34.308Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-30T08:57:34.310Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-30T08:57:34.764Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-30T08:57:37.840Z] INFO  [initialLoad] All panels loaded — updating status bar
+[2026-07-30T08:57:37.840Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-30T08:57:37.858Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Qr (fresh repo or backend read failed)
+[2026-07-30T08:57:38.017Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-30T08:57:38.019Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-30T08:57:38.053Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-30T08:57:38.075Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Iw (fresh repo or backend read failed)
+[2026-07-30T09:43:31.612Z] INFO  [activate] Activating JolliMemory extension {"workspaceRoot":"/Users/adarsh/completeAI","extensionPath":"/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.9"}
+[2026-07-30T09:43:31.699Z] INFO  [initialLoad] Loading all panels
+[2026-07-30T09:43:31.861Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-07-30T09:43:31.861Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-07-30T09:43:31.861Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-07-30T09:43:31.952Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-30T09:43:31.990Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-30T09:43:31.991Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-30T09:43:31.997Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-30T09:43:32.082Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Iw (fresh repo or backend read failed)
+[2026-07-30T09:43:36.344Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-30T09:43:36.414Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-30T09:43:36.493Z] INFO  [bridge] Merged mode activated {"branch":"main","creationPoint":"b4f95d79","author":"Adarsh"}
+[2026-07-30T09:43:36.568Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-30T09:43:36.682Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-30T09:43:36.851Z] INFO  [SchemaV5Migration] Storage backend not initialized yet — skipping schema v5 migration (no data to migrate)
+[2026-07-30T09:43:36.851Z] INFO  [activate] Schema v5 migration: alreadyDone=false fresh=true migrated=0 skipped=0
+[2026-07-30T09:43:36.934Z] WARN  [ReadStorageResolver] createReadStorage: folder lacks index.json — falling back to orphan branch (migration incomplete, or folder wiped)
+[2026-07-30T09:43:36.989Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Qr (fresh repo or backend read failed)
+[2026-07-30T09:43:38.311Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-30T09:43:38.316Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-30T09:43:38.365Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-30T09:43:38.767Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-30T09:43:38.779Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-30T09:43:39.082Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-30T09:43:44.053Z] INFO  [initialLoad] All panels loaded — updating status bar
+[2026-07-30T09:43:44.053Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-30T09:43:44.091Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Qr (fresh repo or backend read failed)
+[2026-07-30T09:43:44.188Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-30T09:43:44.190Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-30T09:43:44.271Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-30T09:43:44.316Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Iw (fresh repo or backend read failed)
+[2026-07-31T06:23:28.305Z] INFO  [activate] Activating JolliMemory extension {"workspaceRoot":"/Users/adarsh/completeAI","extensionPath":"/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.9"}
+[2026-07-31T06:23:30.599Z] INFO  [initialLoad] Loading all panels
+[2026-07-31T06:23:30.853Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-07-31T06:23:30.853Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-07-31T06:23:30.853Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-07-31T06:23:30.860Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-31T06:23:32.214Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-31T06:23:32.217Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-31T06:23:35.205Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Iw (fresh repo or backend read failed)
+[2026-07-31T06:23:39.725Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-31T06:23:40.163Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-31T06:23:41.267Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-31T06:23:42.517Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-31T06:23:42.682Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-31T06:23:43.148Z] INFO  [SchemaV5Migration] Storage backend not initialized yet — skipping schema v5 migration (no data to migrate)
+[2026-07-31T06:23:43.148Z] INFO  [activate] Schema v5 migration: alreadyDone=false fresh=true migrated=0 skipped=0
+[2026-07-31T06:23:43.720Z] INFO  [bridge] Merged mode activated {"branch":"main","creationPoint":"b4f95d79","author":"Adarsh"}
+[2026-07-31T06:23:44.132Z] WARN  [ReadStorageResolver] createReadStorage: folder lacks index.json — falling back to orphan branch (migration incomplete, or folder wiped)
+[2026-07-31T06:23:44.266Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Qr (fresh repo or backend read failed)
+[2026-07-31T06:23:49.454Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-31T06:23:49.488Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-31T06:23:49.537Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-31T06:23:50.591Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-31T06:23:50.601Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-31T06:23:51.060Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-31T06:24:06.988Z] INFO  [initialLoad] All panels loaded — updating status bar
+[2026-07-31T06:24:06.989Z] INFO  [Installer] Checking Jolli Memory status
+[2026-07-31T06:24:07.656Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Qr (fresh repo or backend read failed)
+[2026-07-31T06:24:07.859Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=true/true, copilotChat=true, cline=true/true
+[2026-07-31T06:24:07.876Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/adarsh/completeAI
+[2026-07-31T06:24:07.930Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-07-31T06:24:07.948Z] WARN  [SummaryStore] loadIndex: index.json unreadable from Iw (fresh repo or backend read failed)
+[2026-08-11T08:35:37.758Z] INFO  [activate] Activating JolliMemory extension {"workspaceRoot":"/Users/adarsh/completeAI","extensionPath":"/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.11"}
+[2026-08-11T08:35:37.891Z] INFO  [initialLoad] Loading all panels
+[2026-08-11T08:35:38.102Z] INFO  [PlanService] detectPlans found 0 plans (0 in registry)
+[2026-08-11T08:35:38.103Z] INFO  [NoteService] detectNotes found 0 notes (0 in registry)
+[2026-08-11T08:35:38.103Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-11T08:35:38.103Z] INFO  [SkillProjection] projectActiveSkills: 0 active (0 in registry)
+[2026-08-11T08:35:38.199Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:35:38.199Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:35:38.302Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:35:42.907Z] INFO  [bridge] Merged mode activated {"branch":"main","creationPoint":"b4f95d79","author":"Adarsh"}
+[2026-08-11T08:35:43.470Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:35:43.470Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:35:43.593Z] INFO  [bridge] Own dist-paths/vscode missing, stale, or pointing elsewhere — re-enabling
+[2026-08-11T08:35:43.593Z] INFO  [bridge] enable() called
+[2026-08-11T08:35:43.658Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:35:43.660Z] INFO  [Installer] Installing Jolli Memory hooks
+[2026-08-11T08:35:43.749Z] WARN  [ReadStorageResolver] createReadStorage: folder lacks index.json — falling back to orphan branch (migration incomplete, or folder wiped)
+[2026-08-11T08:35:43.813Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:35:43.813Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:35:44.135Z] INFO  [SchemaV5Migration] Storage backend not initialized yet — skipping schema v5 migration (no data to migrate)
+[2026-08-11T08:35:44.135Z] INFO  [activate] Schema v5 migration: alreadyDone=false fresh=true migrated=0 skipped=0
+[2026-08-11T08:35:44.280Z] INFO  [DispatchScripts] Wrote resolve-dist-path, run-hook, and run-cli scripts to /Users/adarsh/.jolli/jollimemory
+[2026-08-11T08:35:44.321Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:35:44.364Z] INFO  [DistPathWriter] Wrote dist-paths/vscode (version=0.99.11, distDir=/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.11/dist)
+[2026-08-11T08:35:44.543Z] INFO  [SkillInstaller] Wrote SKILL.md (revision 2) to /Users/adarsh/completeAI/.agents/skills/jolli-recall/SKILL.md
+[2026-08-11T08:35:44.548Z] INFO  [SkillInstaller] Wrote SKILL.md (revision 2) to /Users/adarsh/completeAI/.agents/skills/jolli-search/SKILL.md
+[2026-08-11T08:35:44.552Z] INFO  [SkillInstaller] Wrote SKILL.md (revision 6) to /Users/adarsh/completeAI/.agents/skills/jolli/SKILL.md
+[2026-08-11T08:35:44.626Z] INFO  [McpRegistration] Registered MCP server in /Users/adarsh/completeAI/.mcp.json
+[2026-08-11T08:35:44.641Z] INFO  [JsonMcpWriter] Registered MCP server in /Users/adarsh/completeAI/.cursor/mcp.json
+[2026-08-11T08:35:44.646Z] INFO  [JsonMcpWriter] Registered MCP server in /Users/adarsh/.gemini/settings.json
+[2026-08-11T08:35:44.647Z] INFO  [JsonMcpWriter] Registered MCP server in /Users/adarsh/Library/Application Support/Code/User/mcp.json
+[2026-08-11T08:35:44.652Z] INFO  [JsonMcpWriter] Registered MCP server in /Users/adarsh/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json
+[2026-08-11T08:35:44.655Z] INFO  [JsonMcpWriter] Registered MCP server in /Users/adarsh/.config/devin/config.json
+[2026-08-11T08:35:44.657Z] INFO  [JsonMcpWriter] Registered MCP server in /Users/adarsh/.gemini/config/mcp_config.json
+[2026-08-11T08:35:44.663Z] INFO  [Installer] Skipping v5 migration on vscode-extension source — Extension.ts owns it with UI
+[2026-08-11T08:35:44.663Z] INFO  [Installer] Installation complete
+[2026-08-11T08:35:44.665Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:35:45.332Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:35:45.610Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:35:45.691Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:35:46.075Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:35:46.078Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:35:46.266Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:35:47.971Z] INFO  [initialLoad] All panels loaded — updating status bar
+[2026-08-11T08:35:47.972Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:35:48.200Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:35:48.224Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:35:48.224Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:37:48.741Z] INFO  [activate] Activating JolliMemory extension {"workspaceRoot":"/Users/adarsh/completeAI","extensionPath":"/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.11"}
+[2026-08-11T08:37:48.821Z] INFO  [initialLoad] Loading all panels
+[2026-08-11T08:37:49.091Z] INFO  [PlanService] detectPlans found 0 plans (0 in registry)
+[2026-08-11T08:37:49.091Z] INFO  [NoteService] detectNotes found 0 notes (0 in registry)
+[2026-08-11T08:37:49.091Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-11T08:37:49.091Z] INFO  [SkillProjection] projectActiveSkills: 0 active (0 in registry)
+[2026-08-11T08:37:49.307Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:37:49.307Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:37:49.427Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:37:49.427Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:37:53.856Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:37:53.857Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:37:54.031Z] INFO  [bridge] Merged mode activated {"branch":"main","creationPoint":"b4f95d79","author":"Adarsh"}
+[2026-08-11T08:37:54.677Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:37:54.780Z] WARN  [ReadStorageResolver] createReadStorage: folder lacks index.json — falling back to orphan branch (migration incomplete, or folder wiped)
+[2026-08-11T08:37:54.782Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:37:54.782Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:37:54.997Z] INFO  [SchemaV5Migration] Storage backend not initialized yet — skipping schema v5 migration (no data to migrate)
+[2026-08-11T08:37:54.997Z] INFO  [activate] Schema v5 migration: alreadyDone=false fresh=true migrated=0 skipped=0
+[2026-08-11T08:37:55.122Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:37:56.217Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:37:56.259Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:37:56.279Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:37:56.668Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:37:56.678Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:37:56.867Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:37:58.676Z] INFO  [initialLoad] All panels loaded — updating status bar
+[2026-08-11T08:37:58.676Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:37:58.877Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=0, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:37:58.904Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:37:58.904Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:46:07.555Z] INFO  [activate] Activating JolliMemory extension {"workspaceRoot":"/Users/adarsh/completeAI","extensionPath":"/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.11"}
+[2026-08-11T08:46:07.701Z] INFO  [initialLoad] Loading all panels
+[2026-08-11T08:46:07.898Z] INFO  [PlanService] detectPlans found 0 plans (0 in registry)
+[2026-08-11T08:46:07.898Z] INFO  [NoteService] detectNotes found 0 notes (0 in registry)
+[2026-08-11T08:46:07.898Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-11T08:46:07.898Z] INFO  [SkillProjection] projectActiveSkills: 0 active (0 in registry)
+[2026-08-11T08:46:08.173Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:46:08.173Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:46:08.285Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:46:08.285Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:46:12.010Z] INFO  [bridge] Merged mode activated {"branch":"main","creationPoint":"b4f95d79","author":"Adarsh"}
+[2026-08-11T08:46:12.088Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:46:12.088Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:46:12.760Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:46:12.852Z] WARN  [ReadStorageResolver] createReadStorage: folder lacks index.json — falling back to orphan branch (migration incomplete, or folder wiped)
+[2026-08-11T08:46:12.854Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:46:12.854Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T08:46:12.988Z] INFO  [SchemaV5Migration] Storage backend not initialized yet — skipping schema v5 migration (no data to migrate)
+[2026-08-11T08:46:12.988Z] INFO  [activate] Schema v5 migration: alreadyDone=false fresh=true migrated=0 skipped=0
+[2026-08-11T08:46:13.145Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:46:14.100Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=1, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:46:14.106Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=1, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:46:14.109Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:46:14.659Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=1, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:46:14.662Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:46:15.028Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=1, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:46:16.782Z] INFO  [initialLoad] All panels loaded — updating status bar
+[2026-08-11T08:46:16.782Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T08:46:16.903Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=2, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T08:46:16.919Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T08:46:16.919Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T09:50:05.008Z] INFO  [activate] Activating JolliMemory extension {"workspaceRoot":"/Users/adarsh/completeAI","extensionPath":"/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.11"}
+[2026-08-11T09:50:05.302Z] INFO  [initialLoad] Loading all panels
+[2026-08-11T09:50:06.857Z] INFO  [PlanService] detectPlans found 0 plans (0 in registry)
+[2026-08-11T09:50:06.857Z] INFO  [NoteService] detectNotes found 0 notes (0 in registry)
+[2026-08-11T09:50:06.858Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-11T09:50:06.858Z] INFO  [SkillProjection] projectActiveSkills: 0 active (0 in registry)
+[2026-08-11T09:50:07.592Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T09:50:07.592Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T09:50:07.944Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T09:50:07.944Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T09:50:09.755Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T09:50:09.756Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T09:50:13.116Z] INFO  [bridge] Merged mode activated {"branch":"main","creationPoint":"b4f95d79","author":"Adarsh"}
+[2026-08-11T09:50:15.691Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T09:50:15.821Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T09:50:15.821Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T09:50:16.711Z] WARN  [ReadStorageResolver] createReadStorage: folder lacks index.json — falling back to orphan branch (migration incomplete, or folder wiped)
+[2026-08-11T09:50:17.281Z] INFO  [SchemaV5Migration] Storage backend not initialized yet — skipping schema v5 migration (no data to migrate)
+[2026-08-11T09:50:17.281Z] INFO  [activate] Schema v5 migration: alreadyDone=false fresh=true migrated=0 skipped=0
+[2026-08-11T09:50:18.460Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T09:50:22.241Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=3, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T09:50:22.261Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=3, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T09:50:22.288Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T09:50:24.900Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=3, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T09:50:24.910Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T09:50:26.378Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=3, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T09:50:34.350Z] INFO  [initialLoad] All panels loaded — updating status bar
+[2026-08-11T09:50:34.350Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T09:50:35.512Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=2, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T09:50:35.660Z] WARN  [CutoverRouter] database unavailable for un-cutover repo (database file does not exist) — orphan remains authoritative
+[2026-08-11T09:50:35.661Z] INFO  [StorageFactory] StorageFactory.create: route=uncutover, projectPath=/Users/adarsh/completeAI
+>>>>>>> 5df9a6d4b71dae6ab90b64af3250f47e24970e9a
+[2026-08-11T16:14:05.549Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-11T16:14:05.552Z] INFO  [PlanService] detectPlans found 0 plans (0 in registry)
+[2026-08-11T16:14:05.552Z] INFO  [NoteService] detectNotes found 0 notes (0 in registry)
+[2026-08-11T16:14:05.553Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-11T16:14:05.553Z] INFO  [SkillProjection] projectActiveSkills: 0 active (0 in registry)
+[2026-08-11T16:14:06.126Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=3, summaries=1, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=true/true
+[2026-08-11T16:14:11.573Z] INFO  [PrePushHook] [trace=bfe26e73d226d83ae0a5cc9ccfc1d540] pre-push hook: remote=origin budget=3000ms
+[2026-08-11T16:15:15.504Z] INFO  [PrePushHook] [trace=17a5352ac4582861d23303d4cda3c21d] pre-push hook: remote=origin budget=3000ms

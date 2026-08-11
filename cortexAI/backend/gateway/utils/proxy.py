@@ -10,7 +10,7 @@ def register_proxy(app: FastAPI, path_prefix: str, target_url: str):
     Dynamically registers a catch-all async reverse proxy route onto the FastAPI app.
     
     Example:
-        register_proxy(app, path_prefix="/auth", target_url="http://127.0.0.1:8001")
+        register_proxy(app, path_prefix="/auth", target_url="http://0.0.0.0:8001")
     """
     # Create a dedicated, persistent async client for this specific microservice backend
     async_client = httpx.AsyncClient(base_url=target_url, timeout=PROXY_TIMEOUT)

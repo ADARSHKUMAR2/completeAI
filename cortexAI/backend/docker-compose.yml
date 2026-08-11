@@ -3,3 +3,34 @@ services:
     image: redis
     ports:
       - 6379:6379
+
+  gateway:
+    build: .
+    image: cortexai
+    command: uv run gateway/main.py
+    ports:
+      - "8000:8000"
+
+  auth:
+    image: cortexai
+    command: uv run services/auth/main.py
+    ports:
+      - "8001:8001"
+
+  chat:
+    image: cortexai
+    command: uv run services/chat/main.py
+    ports:
+      - "8002:8002"
+
+  agent:
+    image: cortexai
+    command: uv run services/agent/main.py
+    ports:
+      - "8003:8003"
+
+  billing:
+    image: cortexai
+    command: uv run services/billing/main.py
+    ports:
+      - "8004:8004"

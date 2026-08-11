@@ -1,0 +1,5 @@
+gateway: FORCE_COLOR=1 PYTHONUNBUFFERED=1 PYTHONPATH=. uvicorn main:app --app-dir gateway --host 0.0.0.0 --port 8000 --reload
+auth: FORCE_COLOR=1 PYTHONUNBUFFERED=1 PYTHONPATH=. uvicorn main:app --app-dir services/auth --host 0.0.0.0 --port 8001 --reload
+chat: FORCE_COLOR=1 PYTHONUNBUFFERED=1 PYTHONPATH=. uvicorn main:app --app-dir services/chat --host 0.0.0.0 --port 8002 --reload
+agent: FORCE_COLOR=1 PYTHONUNBUFFERED=1 PYTHONPATH=. uvicorn main:app --app-dir services/agent --host 0.0.0.0 --port 8003 --reload
+billing: FORCE_COLOR=1 PYTHONUNBUFFERED=1 PYTHONPATH=. uvicorn main:app --app-dir services/billing --host 0.0.0.0 --port 8004 --reload

@@ -22,25 +22,25 @@ register_cors(app)
 register_proxy(
     app, 
     path_prefix="/auth", 
-    target_url=os.getenv("AUTH_SERVICE_URL", "http://127.0.0.1:8001")
+    target_url=os.getenv("AUTH_SERVICE_URL", "http://0.0.0.0:8001")
 )
 
 register_proxy_with_header(
     app,
     path_prefix="/chat",
-    target_url=os.getenv("CHAT_SERVICE_URL", "http://127.0.0.1:8002")
+    target_url=os.getenv("CHAT_SERVICE_URL", "http://0.0.0.0:8002")
 )
 
 register_proxy_with_header(
     app,
     path_prefix="/agent",
-    target_url=os.getenv("AGENT_SERVICE_URL", "http://127.0.0.1:8003")
+    target_url=os.getenv("AGENT_SERVICE_URL", "http://0.0.0.0:8003")
 )
 
 register_proxy_with_header(
     app,
     path_prefix="/billing",
-    target_url=os.getenv("BILLING_SERVICE_URL", "http://127.0.0.1:8004")
+    target_url=os.getenv("BILLING_SERVICE_URL", "http://0.0.0.0:8004")
 )
 
 # Register the protected validation endpoint
@@ -58,7 +58,7 @@ async def root():
 
 def main():
     print(f"Gateway server booting up on port {PORT}...")
-    uvicorn.run("main:app", host="127.0.0.1", port=PORT, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=PORT, reload=True)
 
 if __name__ == "__main__":
     main()

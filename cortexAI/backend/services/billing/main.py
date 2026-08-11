@@ -45,7 +45,7 @@ async def root():
     return {"message": "hello from blling"}
 
 def main():
-    uvicorn.run("main:app", host="127.0.0.1", port=PORT, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=PORT, reload=True)
 
 if __name__ == "__main__":
     main()
