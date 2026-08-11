@@ -1,0 +1,52 @@
+[2026-08-11T15:15:15.848Z] INFO  [PrepareMsgHook] === Prepare-commit-msg hook started (source: message) ===
+[2026-08-11T15:15:16.017Z] INFO  [PrepareMsgHook] === Prepare-commit-msg hook finished ===
+[2026-08-11T15:15:16.328Z] INFO  [PostCommitHook] [trace=c6e75197a84a6731cb2f2dd3048d3982] Detected operation: commit
+[2026-08-11T15:15:16.353Z] INFO  [PostCommitHook] [trace=c6e75197a84a6731cb2f2dd3048d3982] Enqueued: type=commit hash=90528597
+[2026-08-11T15:15:16.354Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Launching background worker
+[2026-08-11T15:15:16.355Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Background worker spawned (PID: 99901)
+[2026-08-11T15:15:16.637Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] === Queue worker started === node=24.13.0 kind=vscode-plugin source=vscode pkgVer=0.99.11 cliVer=0.99.11 dist=/Users/adarsh/.vscode/extensions/jolli.jollimemory-vscode-0.99.11/dist
+[2026-08-11T15:15:16.659Z] INFO  [StorageFactory] [trace=c6e75197a84a6731cb2f2dd3048d3982] StorageFactory.create: route=cutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T15:15:16.728Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Processing queue entry: type=commit hash=90528597
+[2026-08-11T15:15:16.749Z] INFO  [GitOps] [trace=c6e75197a84a6731cb2f2dd3048d3982] Commit 90528597: Sync backend and update files
+[2026-08-11T15:15:16.750Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Commit: 90528597 - Sync backend and update files (17ms)
+[2026-08-11T15:15:16.801Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Discovered 3 Cline (VS Code) session(s)
+[2026-08-11T15:15:16.865Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Transcript source: session=1786437580749, lines=0→86, entries=44
+[2026-08-11T15:15:16.869Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Transcript source: session=1786437974355, lines=0→14, entries=8
+[2026-08-11T15:15:16.892Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Transcript source: session=1786447809232, lines=0→94, entries=82
+[2026-08-11T15:15:16.953Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Git diff: 11 files changed, +3 -0 (59ms)
+[2026-08-11T15:15:16.989Z] INFO  [TranscriptReader] [trace=c6e75197a84a6731cb2f2dd3048d3982] Conversation budget reached: kept 59/134 transcript entries (~147685/150000 chars); older turns dropped
+[2026-08-11T15:15:17.033Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Prompt blocks: plans=0 notes=0 references=0 (+0 track-only archived, not prompted) (AI soft-excluded 0)
+[2026-08-11T15:15:17.033Z] INFO  [Summarizer] [trace=c6e75197a84a6731cb2f2dd3048d3982] Generating summary for commit 90528597
+[2026-08-11T15:15:17.033Z] INFO  [Summarizer] [trace=c6e75197a84a6731cb2f2dd3048d3982] Context: transcript=134, files=11, lines=3+0
+[2026-08-11T15:15:17.034Z] WARN  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] First API attempt failed: No LLM provider available. Set an Anthropic API key (ANTHROPIC_API_KEY) or configure a Jolli Space API key (jolliApiKey).. Retrying in 2000ms...
+[2026-08-11T15:15:19.039Z] INFO  [Summarizer] [trace=c6e75197a84a6731cb2f2dd3048d3982] Generating summary for commit 90528597
+[2026-08-11T15:15:19.039Z] INFO  [Summarizer] [trace=c6e75197a84a6731cb2f2dd3048d3982] Context: transcript=134, files=11, lines=3+0
+[2026-08-11T15:15:19.041Z] ERROR [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] API call failed after retry: No LLM provider available. Set an Anthropic API key (ANTHROPIC_API_KEY) or configure a Jolli Space API key (jolliApiKey).
+[2026-08-11T15:15:19.042Z] WARN  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Saving summary with empty topics + llm-failed marker for commit 90528597
+[2026-08-11T15:15:19.042Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] API summary generated (2.0s)
+[2026-08-11T15:15:19.044Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Plan registry scan: found 0 uncommitted slug(s) on main: []
+[2026-08-11T15:15:19.044Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Plan association: detected 0 slug(s) from transcripts: []
+[2026-08-11T15:15:19.044Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Note registry scan: found 0 uncommitted note(s) on main: []
+[2026-08-11T15:15:19.045Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Note association: detected 0 note(s): []
+[2026-08-11T15:15:19.045Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Reference association: detected 0 ref(s) for branch main
+[2026-08-11T15:15:19.049Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Summary built for 90528597: recap=no, topics=0, plans=absent, notes=absent, references=absent
+[2026-08-11T15:15:19.178Z] INFO  [MetadataManager] [trace=c6e75197a84a6731cb2f2dd3048d3982] Manifest updated: main/sync-backend-and-update-files-90528597.md (commit)
+[2026-08-11T15:15:19.178Z] INFO  [FolderStorage] [trace=c6e75197a84a6731cb2f2dd3048d3982] Markdown generated: main/sync-backend-and-update-files-90528597.md
+[2026-08-11T15:15:19.181Z] INFO  [FolderStorage] [trace=c6e75197a84a6731cb2f2dd3048d3982] Wrote 4 files, deleted 0 (Add summary for 90528597: Sync backend and update files)
+[2026-08-11T15:15:19.181Z] INFO  [SummaryStore] [trace=c6e75197a84a6731cb2f2dd3048d3982] Summary stored successfully for commit 90528597
+[2026-08-11T15:15:19.194Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Summary stored successfully for commit 90528597 (145ms, 0 plans, 0 notes, 0 references)
+[2026-08-11T15:15:19.194Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] === Pipeline completed in 2.5s ===
+[2026-08-11T15:15:19.194Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] === Summary content (0 topics) ===
+[2026-08-11T15:15:19.199Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Processed 1 queue entries
+[2026-08-11T15:15:19.202Z] INFO  [SessionTracker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Enqueued queue operation: type=ingest tag=ingest file=1786461319201-00000001-3a4046e7-ingest.json
+[2026-08-11T15:15:19.203Z] INFO  [PushExecutor] [trace=c6e75197a84a6731cb2f2dd3048d3982] Post-queue push trigger: scheduling drain for 1 newly generated summar(ies)
+[2026-08-11T15:15:19.274Z] INFO  [GitOps] [trace=c6e75197a84a6731cb2f2dd3048d3982] Commit 90528597: Sync backend and update files
+[2026-08-11T15:15:19.333Z] INFO  [StorageFactory] [trace=c6e75197a84a6731cb2f2dd3048d3982] StorageFactory.create: route=cutover, projectPath=/Users/adarsh/completeAI
+[2026-08-11T15:15:19.436Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] === Queue worker finished ===
+[2026-08-11T15:15:19.440Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] Processing queue entry: type=ingest triggeredBy=post-commit
+[2026-08-11T15:15:19.442Z] INFO  [QueueWorker] [trace=c6e75197a84a6731cb2f2dd3048d3982] No API key configured — skipping ingest (post-commit)
+[2026-08-11T15:15:19.616Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-11T15:15:19.617Z] INFO  [NoteService] detectNotes found 0 notes (0 in registry)
+[2026-08-11T15:15:19.617Z] INFO  [PlanService] detectPlans found 0 plans (0 in registry)
+[2026-08-11T15:15:19.617Z] INFO  [SkillProjection] projectActiveSkills: 0 active (0 in registry)
+[2026-08-11T15:15:20.882Z] INFO  [PrePushHook] [trace=4f3bb70e74e73818a7186364e7735c84] pre-push hook: remote=origin budget=3000ms
