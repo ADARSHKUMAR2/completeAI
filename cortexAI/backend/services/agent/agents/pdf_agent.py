@@ -90,7 +90,17 @@ Topic:
 
 📨 [Download PDF]({download_url})
 
-_Link expires in 1 hour._"""
+_Link expires in 1 hour._""",
+
+"artifacts": [
+                {
+                    "id": int(time.time() * 1000), 
+                    "type": "pdf",  
+                    "title": data.get("title", "Generated Document"),
+                    "url": download_url,
+                    "filename": filename
+                }
+            ]
         }
 
     except Exception as error:

@@ -15,12 +15,13 @@ class FileSchema(BaseModel):
     name: str
     content: str
 
-# Equivalent to artifactSchema (_id: false)
 class ArtifactSchema(BaseModel):
-    id: int
-    type: str
+    id: Optional[int] = None
+    type: Optional[str] = None
     title: str
     files: List[FileSchema] = Field(default_factory=list)
+    url: Optional[str] = None
+    filename: Optional[str] = None
 
 class Message(Document):
     # Option A: Direct ID reference (Simpler, standard for microservices)
