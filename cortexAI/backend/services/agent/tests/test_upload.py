@@ -1,6 +1,6 @@
 # test_upload.py
 import os
-from config.aws_bucketHandler import s3
+from services.agent.config.aws_bucketHandler import s3
 
 try:
     print("Uploading test object to AWS S3...")

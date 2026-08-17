@@ -1,7 +1,7 @@
 import httpx
 from fastapi import FastAPI, Request, Response
 from fastapi.params import Depends
-from middleware.auth import protect
+from gateway.middleware.auth import protect
 
 PROXY_TIMEOUT = httpx.Timeout(60.0, connect=10.0)
 

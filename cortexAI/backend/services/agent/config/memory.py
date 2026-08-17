@@ -1,6 +1,6 @@
 import json
 import redis.asyncio as redis
-from utils.getMessages import get_messages
+from services.agent.utils.getMessages import get_messages
 import os
 from dotenv import load_dotenv
 

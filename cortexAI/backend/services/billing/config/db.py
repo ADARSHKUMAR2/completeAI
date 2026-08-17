@@ -2,7 +2,7 @@ import os
 from pymongo import AsyncMongoClient
 from beanie import init_beanie
 
-from models.paymentModel import Payment
+from services.billing.models.paymentModel import Payment
 
 
 async def connect_db():

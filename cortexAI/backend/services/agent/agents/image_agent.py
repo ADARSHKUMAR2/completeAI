@@ -1,13 +1,13 @@
 import time
 import httpx
 from urllib.parse import quote
-from config.llmModels import get_model
-from utils.upload_AWS import upload_to_s3
-from utils.getFrom_AWS import get_from_s3
-from graph.state import AgentState
+from services.agent.config.llmModels import get_model
+from services.agent.utils.upload_AWS import upload_to_s3
+from services.agent.utils.getFrom_AWS import get_from_s3
+from services.agent.graph.state import AgentState
 from rich import print
-from utils.deductCredits import deduct_credits
-from config.agentLimit import check_agent_limit
+from services.agent.utils.deductCredits import deduct_credits
+from services.agent.config.agentLimit import check_agent_limit
 
 async def image_node(state: AgentState) -> dict:
     """

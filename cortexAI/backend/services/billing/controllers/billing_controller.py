@@ -6,9 +6,9 @@ import httpx
 from fastapi import HTTPException, status
 from pydantic import BaseModel
 
-from config.Plans import PLANS
-from config.razorpay import razorpay_client
-from models.paymentModel import Payment, PaymentStatus
+from services.billing.config.Plans import PLANS
+from services.billing.config.razorpay import razorpay_client
+from services.billing.models.paymentModel import Payment, PaymentStatus
 
 
 class CreateOrderSchema(BaseModel):

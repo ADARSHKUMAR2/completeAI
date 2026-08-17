@@ -3,12 +3,12 @@ import uvicorn
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from dotenv import load_dotenv
-from config.db import connect_db  # We will update/create this next
-from routes.agent_Route import agent_router
+from services.agent.config.db import connect_db  # We will update/create this next
+from services.agent.routes.agent_Route import agent_router
 from shared.redis.redis import init_redis
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from config.agentLimit import RateLimitException
+from services.agent.config.agentLimit import RateLimitException
 
 # 1. Load environment variables
 load_dotenv()

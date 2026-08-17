@@ -1,20 +1,20 @@
 from langgraph.graph import StateGraph, START, END
 
 # 1. Import your shared LangGraph memory state schema
-from graph.state import AgentState
+from services.agent.graph.state import AgentState
 
 # 2. Import the routing condition rule
-from graph.router import route_decision
+from services.agent.graph.router import route_decision
 
 # 3. Import all worker nodes from your agents subfolder
-from agents.chat_agent import chat_node
-from agents.coding_agent import coding_node
-from agents.image_agent import image_node
-from agents.pdf_agent import pdf_node
-from agents.ppt_agent import ppt_node
-from agents.search_agent import search_node
-from agents.imageAnalyser_agent import imageAnalyser_node
-from agents.pdfRag_agent import pdfRag_node
+from services.agent.agents.chat_agent import chat_node
+from services.agent.agents.coding_agent import coding_node
+from services.agent.agents.image_agent import image_node
+from services.agent.agents.pdf_agent import pdf_node
+from services.agent.agents.ppt_agent import ppt_node
+from services.agent.agents.search_agent import search_node
+from services.agent.agents.imageAnalyser_agent import imageAnalyser_node
+from services.agent.agents.pdfRag_agent import pdfRag_node
 
 # Initialize workflow bound to your two-key prompt/aiResponse schema
 workflow = StateGraph(AgentState)
@@ -23,7 +23,7 @@ workflow = StateGraph(AgentState)
 # Note: We include an explicit "router" block if you want it as a node, 
 # or you can route straight out of START if the router logic lives in route_decision!
 # For a clean supervisory pattern, we'll keep the router block explicit:
-from graph.router import router_node
+from services.agent.graph.router import router_node
 workflow.add_node("router", router_node)
 
 workflow.add_node("chat", chat_node)

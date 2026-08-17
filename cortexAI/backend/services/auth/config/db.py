@@ -1,7 +1,7 @@
 import os
 from pymongo import AsyncMongoClient
 from beanie import init_beanie
-from models.user import User
+from services.auth.models.user import User
 
 async def connect_db():
     try:

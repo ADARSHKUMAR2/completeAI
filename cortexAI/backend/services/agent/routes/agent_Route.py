@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Header, HTTPException, status, Request, File, UploadFile
-from controllers.agent_Controller import handle_agent_request, AgentRequestPayload
+from services.agent.controllers.agent_Controller import handle_agent_request, AgentRequestPayload
 from typing import Optional
 
 agent_router = APIRouter()

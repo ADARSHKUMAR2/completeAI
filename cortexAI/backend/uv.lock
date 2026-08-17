@@ -187,6 +187,7 @@ dependencies = [
     { name = "beanie" },
     { name = "boto3" },
     { name = "debugpy" },
+    { name = "decouple" },
     { name = "fastapi" },
     { name = "firebase-admin" },
     { name = "httpx" },
@@ -226,6 +227,7 @@ requires-dist = [
     { name = "beanie", specifier = ">=2.1.0" },
     { name = "boto3", specifier = ">=1.43.53" },
     { name = "debugpy", specifier = ">=1.8.21" },
+    { name = "decouple", specifier = ">=0.0.7" },
     { name = "fastapi", specifier = ">=0.139.1" },
     { name = "firebase-admin", specifier = ">=7.5.0" },
     { name = "httpx", specifier = ">=0.28.1" },
@@ -562,6 +564,12 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/5f/67/b905b90d163af11878c1af8abafa4a25206335e112e284e413454543a6da/debugpy-1.8.21-cp314-cp314-win_amd64.whl", hash = "sha256:fe0744a12353406de0ae8ccff0d0a4a666f00801a3db8fd04e7a5f761cd520e8", size = 5373803, upload-time = "2026-06-01T19:31:09.469Z" },
     { url = "https://files.pythonhosted.org/packages/95/51/67e7cf11a53e40694f720457d5b3a1cdaaa3d5a9a633e482f225456b93ff/debugpy-1.8.21-py2.py3-none-any.whl", hash = "sha256:b1e37d333663c8851516a47364ef473da127f9caebe4417e6df6f5825a7e9a92", size = 5352888, upload-time = "2026-06-01T19:31:25.186Z" },
 ]
+
+[[package]]
+name = "decouple"
+version = "0.0.7"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/6c/e3/f70681dd89a96a701f22055caedc79cf88cebdeac9df827a5720bca80278/decouple-0.0.7.tar.gz", hash = "sha256:c253c1cc62b76e9720a066f334552548c6de1884bc3bdf456ddb62d61b867b09", size = 3324, upload-time = "2019-12-25T15:01:39.824Z" }
 
 [[package]]
 name = "distro"

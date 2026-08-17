@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Header, HTTPException, status
-from controllers.billing_controller import create_order, CreateOrderSchema, verify_payment, VerifyPaymentSchema
+from services.billing.controllers.billing_controller import create_order, CreateOrderSchema, verify_payment, VerifyPaymentSchema
 
 router = APIRouter()
 

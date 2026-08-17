@@ -1,11 +1,11 @@
-from graph.state import AgentState
+from services.agent.graph.state import AgentState
 import base64
 import os
 import aiofiles
 from langchain_core.messages import SystemMessage, HumanMessage
-from config.llmModels import get_model  # Your LLM loader module
-from utils.deductCredits import deduct_credits
-from config.agentLimit import check_agent_limit
+from services.agent.config.llmModels import get_model  # Your LLM loader module
+from services.agent.utils.deductCredits import deduct_credits
+from services.agent.config.agentLimit import check_agent_limit
 
 async def imageAnalyser_node(state: AgentState) -> dict:
     """

@@ -3,12 +3,12 @@ import uvicorn
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from config.db import connect_db
+from services.chat.config.db import connect_db
 # from controllers.auth import router as auth_router
 from pathlib import Path
 import sys
 from shared.redis.redis import init_redis
-from routes.chat import router as chat_router
+from services.chat.routes.chat import router as chat_router
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 

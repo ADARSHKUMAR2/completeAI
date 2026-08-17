@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Cookie, Response
 from typing import Optional
 
-from controllers.auth import (
+from services.auth.controllers.auth import (
     LoginRequest,
     UpdateUserPaymentSchema,
     DeductCreditsSchema,

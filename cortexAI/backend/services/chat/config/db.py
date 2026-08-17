@@ -1,8 +1,8 @@
 import os
 from pymongo import AsyncMongoClient
 from beanie import init_beanie
-from models.conversation import Conversation
-from models.message import Message
+from services.chat.models.conversation import Conversation
+from services.chat.models.message import Message
 
 async def connect_db():
     try:

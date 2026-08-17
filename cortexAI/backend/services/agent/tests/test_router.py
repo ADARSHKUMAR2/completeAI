@@ -1,7 +1,7 @@
 import asyncio
 from unittest.mock import patch
 
-from graph.router import router_node
+from services.agent.graph.router import router_node
 
 
 class FakeStructuredModel:

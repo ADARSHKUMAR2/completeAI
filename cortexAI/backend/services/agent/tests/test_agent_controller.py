@@ -1,4 +1,4 @@
-from controllers.agent_Controller import AgentRequestPayload
+from services.agent.controllers.agent_Controller import AgentRequestPayload
 
 
 def test_agent_request_payload_allows_missing_conversation_id():

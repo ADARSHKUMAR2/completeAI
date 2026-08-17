@@ -1,11 +1,11 @@
 from fastapi import HTTPException, status, Header
-from models.conversation import Conversation
+from services.chat.models.conversation import Conversation
 from typing import List
 from pydantic import BaseModel
 from beanie import PydanticObjectId
 from typing import Optional
-from models.message import ChatRole, Message
-from models.message import ArtifactSchema
+from services.chat.models.message import ChatRole, Message
+from services.chat.models.message import ArtifactSchema
 
 class SaveMessageSchema(BaseModel):
     conversationId: PydanticObjectId

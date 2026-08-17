@@ -3,9 +3,9 @@ import uvicorn
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from config.db import connect_db
-from config.firebase import init_firebase
-from routes.user_router import router as auth_router
+from services.auth.config.db import connect_db
+from services.auth.config.firebase import init_firebase
+from services.auth.routes.user_router import router as auth_router
 from pathlib import Path
 import sys
 from shared.redis.redis import init_redis

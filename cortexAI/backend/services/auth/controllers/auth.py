@@ -8,7 +8,7 @@ from fastapi import Cookie, HTTPException, Response, status
 from firebase_admin import auth as firebase_auth
 from pydantic import BaseModel
 
-from models.user import User
+from services.auth.models.user import User
 from shared.redis.redis import redis_client
 
 # ------------------------------------------------------------------------------

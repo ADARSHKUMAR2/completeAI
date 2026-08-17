@@ -2,7 +2,7 @@ from enum import Enum
 from datetime import datetime
 from pydantic import Field
 from beanie import Document, PydanticObjectId, Link
-from models.conversation import Conversation
+from services.chat.models.conversation import Conversation
 from pydantic import Field, ConfigDict
 from typing import List, Optional
 from pydantic import BaseModel

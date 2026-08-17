@@ -1,5 +1,5 @@
 import os
-from config.aws_bucketHandler import s3
+from services.agent.config.aws_bucketHandler import s3
 from dotenv import load_dotenv  
 
 load_dotenv()

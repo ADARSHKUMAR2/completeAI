@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from controllers.chat import create_conversation, get_conversations, save_message, get_messages, GetMessagesSchema, SaveMessageSchema, update_conversation, UpdateConversationSchema
+from services.chat.controllers.chat import create_conversation, get_conversations, save_message, get_messages, GetMessagesSchema, SaveMessageSchema, update_conversation, UpdateConversationSchema
 from fastapi.params import Depends
 
 router = APIRouter()

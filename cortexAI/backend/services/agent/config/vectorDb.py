@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from langchain_qdrant import QdrantVectorStore
-from config.embeddings import embeddings 
+from services.agent.config.embeddings import embeddings 
 from langchain_core.documents import Document
 from typing import List
 

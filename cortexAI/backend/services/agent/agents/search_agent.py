@@ -1,7 +1,7 @@
-from graph.state import AgentState
-from config.tavily import search_tool
-from utils.deductCredits import deduct_credits
-from config.agentLimit import check_agent_limit
+from services.agent.graph.state import AgentState
+from services.agent.config.tavily import search_tool
+from services.agent.utils.deductCredits import deduct_credits
+from services.agent.config.agentLimit import check_agent_limit
 
 async def search_node(state: AgentState) -> dict:
     """

@@ -3,12 +3,12 @@ import uvicorn
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from config.db import connect_db
+from services.billing.config.db import connect_db
 # from controllers.auth import router as auth_router
 from pathlib import Path
 import sys
 from shared.redis.redis import init_redis
-from routes.billing import router as billing_router
+from services.billing.routes.billing import router as billing_router
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 

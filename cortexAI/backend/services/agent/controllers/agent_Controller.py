@@ -2,13 +2,13 @@ import os
 import httpx
 from fastapi import HTTPException, status
 from pydantic import BaseModel, Field
-from graph.graph import agent_app
-from config.memory import add_message, get_memory
+from services.agent.graph.graph import agent_app
+from services.agent.config.memory import add_message, get_memory
 import redis.asyncio as redis
 from typing import Optional
 from fastapi import UploadFile
-from config.file_upload import save_uploaded_file
-from config.agentLimit import check_agent_limit, RateLimitException
+from services.agent.config.file_upload import save_uploaded_file
+from services.agent.config.agentLimit import check_agent_limit, RateLimitException
 
 # 1. Define the incoming request schema validation payload
 class AgentRequestPayload(BaseModel):

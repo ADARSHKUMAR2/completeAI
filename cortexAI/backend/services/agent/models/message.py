@@ -2,7 +2,7 @@ from enum import Enum
 from datetime import datetime
 from pydantic import Field
 from beanie import Document, PydanticObjectId, Link
-from models.conversation import Conversation
+from services.agent.models.conversation import Conversation
 
 class ChatRole(str, Enum):
     USER = "user"
