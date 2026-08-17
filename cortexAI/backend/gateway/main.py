@@ -2,11 +2,11 @@ import os
 from fastapi import FastAPI, Request, Response, Depends
 from dotenv import load_dotenv
 import httpx
-from utils.proxy import register_proxy, register_proxy_with_header
-from utils.cors import register_cors
+from gateway.utils.proxy import register_proxy, register_proxy_with_header
+from gateway.utils.cors import register_cors
 import uvicorn
-from middleware.auth import protect
-from controllers.user import get_current_user
+from gateway.middleware.auth import protect
+from gateway.controllers.user import get_current_user
 
 # 1. Load environment variables from your .env file
 load_dotenv()

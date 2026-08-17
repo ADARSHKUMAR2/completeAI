@@ -3,3 +3,5 @@
 **/*.json.secret
 .env
 .env.local
+rav.yaml
+deploy.yml
