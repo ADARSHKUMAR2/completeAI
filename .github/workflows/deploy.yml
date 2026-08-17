@@ -1,0 +1,102 @@
+name: Test, Build and Push to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - "main"
+
+env:
+  PROJECT_ID: "cortexai-505409"
+  REGION: "asia-south1"
+  GAR_REPO: "cortexai-repo"
+
+jobs:
+  build-backend:
+    name: Build Backend Image
+    runs-on: ubuntu-latest
+    outputs:
+      image_path: ${{ steps.build-push.outputs.image_path }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Google Auth
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Authorize Docker push
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+      # Builds the image once and pushes it with the github commit SHA as the tag
+      - name: Build and Push Backend Container
+        id: build-push
+        run: |
+          IMAGE_PATH="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/backend:${{ github.sha }}"
+          docker build --platform linux/amd64 -t $IMAGE_PATH ./cortexAI/backend
+          docker push $IMAGE_PATH
+          echo "image_path=$IMAGE_PATH" >> $GITHUB_OUTPUT
+
+  deploy-backend:
+    name: Deploy Backend Services
+    needs: build-backend
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - name: auth-service
+            port: 8001
+            command: "uv,run,uvicorn,services.auth.main:app,--host,0.0.0.0,--port,8001"
+          - name: chat-service
+            port: 8002
+            command: "uv,run,uvicorn,services.chat.main:app,--host,0.0.0.0,--port,8002"
+          - name: agent-service
+            port: 8003
+            command: "uv,run,uvicorn,services.agent.main:app,--host,0.0.0.0,--port,8003"
+          - name: billing-service
+            port: 8004
+            command: "uv,run,uvicorn,services.billing.main:app,--host,0.0.0.0,--port,8004"
+          - name: gateway-service
+            port: 8000
+            command: "uv,run,uvicorn,gateway.main:app,--host,0.0.0.0,--port,8000"
+    
+    steps:
+      - name: Google Auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: Set service-specific environment variables
+        id: set-env-vars
+        run: |
+          case "${{ matrix.service.name }}" in
+            "auth-service")
+              echo "ENV_VARS=MONGODB_URI=${{ secrets.MONGODB_URI }}/auth,REDIS_URL=${{ secrets.REDIS_URL }}" >> $GITHUB_OUTPUT
+              ;;
+            "chat-service")
+              echo "ENV_VARS=MONGODB_URI=${{ secrets.MONGODB_URI }}/chat" >> $GITHUB_OUTPUT
+              ;;
+            "agent-service")
+              echo "ENV_VARS=MONGODB_URI=${{ secrets.MONGODB_URI }}/agent,REDIS_URL=${{ secrets.REDIS_URL }},GROQ_API_KEY=${{ secrets.GROQ_API_KEY }},GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }},LANGCHAIN_TRACING_V2=true,LANGCHAIN_ENDPOINT=https://api.smith.langchain.com,LANGCHAIN_API_KEY=${{ secrets.LANGCHAIN_API_KEY }},LANGCHAIN_PROJECT=CortexAI,TAVILY_API_KEY=${{ secrets.TAVILY_API_KEY }},OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }},AWS_REGION=${{ secrets.AWS_REGION }},AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }},AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }},AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }},QDRANT_API_KEY=${{ secrets.QDRANT_API_KEY }},QDRANT_URL=${{ secrets.QDRANT_URL }}" >> $GITHUB_OUTPUT
+              ;;
+            "billing-service")
+              echo "ENV_VARS=MONGODB_URI=${{ secrets.MONGODB_URI }}/billing,RAZORPAY_KEY_ID=${{ secrets.RAZORPAY_KEY_ID }},RAZORPAY_SECRET_KEY=${{ secrets.RAZORPAY_SECRET_KEY }}" >> $GITHUB_OUTPUT
+              ;;
+            "gateway-service")
+              echo "ENV_VARS=AUTH_SERVICE_URL=${{ secrets.AUTH_SERVICE_URL }},CHAT_SERVICE_URL=${{ secrets.CHAT_SERVICE_URL }},AGENT_SERVICE_URL=${{ secrets.AGENT_SERVICE_URL }},BILLING_SERVICE_URL=${{ secrets.BILLING_SERVICE_URL }},REDIS_URL=${{ secrets.REDIS_URL }}" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ matrix.service.name }}
+          region: ${{ env.REGION }}
+          image: ${{ needs.build-backend.outputs.image_path }}
+          flags: '--command=${{ matrix.service.command }} --port=${{ matrix.service.port }} --allow-unauthenticated --memory=1Gi'
+          env_vars: ${{ steps.set-env-vars.outputs.ENV_VARS }}
+
