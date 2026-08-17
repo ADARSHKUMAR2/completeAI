@@ -21,7 +21,7 @@ class AgentType(StrEnum):
 # 1. Initialize the LLM client instances
 # (Note: Standard Groq models include llama3-8b-8192, llama-3.1-70b-versatile, etc.)
 groq_llm = ChatGroq(
-    model="gpt-oss-120b",
+    model="gpt-oss-20b",
     temperature=0
 )
 
